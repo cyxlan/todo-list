@@ -16,8 +16,10 @@ const getProject = (name) => {
 
 const getProjects = () => projects;
 
+const addTodoToProject = (projectName, todo) => {
+  getProject(projectName).todos.push(todo);
+}
+
 export {
-  createProject,
-  getProject,
-  getProjects,
+  addTodoToProject
 }
