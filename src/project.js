@@ -14,12 +14,25 @@ const getProject = (name) => {
   }
 }
 
-const getProjects = () => projects;
+const getProjectNames = () => {
+  const projectNames = []
+  for (const project of projects) {
+    projectNames.push(project.name);
+  }
+  return projectNames;
+};
+
+const getProjectTodos = (projectName) => {
+  return getProject(projectName).todos;
+}
 
 const addTodoToProject = (projectName, todo) => {
   getProject(projectName).todos.push(todo);
 }
 
 export {
+  createProject,
+  getProjectNames,
+  getProjectTodos,
   addTodoToProject
 }
