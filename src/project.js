@@ -19,6 +19,10 @@ const createProject = (name) => {
 }
 createProject("default");
 
+const renameProject = (name, newName) => {
+  getProject(name).name = newName;
+}
+
 const getProjectNames = () => {
   const projectNames = []
   for (const project of projects) {
@@ -37,6 +41,7 @@ const addTodoToProject = (projectName, todo) => {
 
 export {
   createProject,
+  renameProject,
   getProjectNames,
   getProjectTodos,
   addTodoToProject

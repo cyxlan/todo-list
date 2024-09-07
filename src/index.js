@@ -1,4 +1,4 @@
-import { createProject, getProjectNames, getProjectTodos } from "./project";
+import { createProject, renameProject, getProjectNames, getProjectTodos } from "./project";
 import { createTodo } from "./todo";
 
 const displayController = (function() {
