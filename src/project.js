@@ -23,6 +23,11 @@ const renameProject = (name, newName) => {
   getProject(name).name = newName;
 }
 
+const deleteProject = (name) => {
+  const index = projects.indexOf(getProject(name));
+  projects.splice(index, 1);
+}
+
 const getProjectNames = () => {
   const projectNames = []
   for (const project of projects) {
@@ -42,6 +47,7 @@ const addTodoToProject = (projectName, todo) => {
 export {
   createProject,
   renameProject,
+  deleteProject,
   getProjectNames,
   getProjectTodos,
   addTodoToProject
