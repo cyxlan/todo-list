@@ -23,18 +23,39 @@ const displayController = (function() {
       } else {
         for (const todo of todos) {
           const todoArticle = document.createElement("article");
+          todoArticle.classList.add("todo");
+          const todoInfo = document.createElement("div");
+          todoInfo.classList.add("todo-info");
 
           for (const property in todo) {
-            const p = document.createElement("p");
-            p.textContent = todo[property];
-            todoArticle.append(p);
+            if (property === "complete") {
+              const checkbox = document.createElement("input");
+              checkbox.setAttribute("type", "checkbox");
+              todoArticle.append(checkbox);
+            } else {
+              let el;
+              if (property === "name") {
+                el = document.createElement("h3");
+              } else {
+                el = document.createElement("p");
+              }
+              el.textContent = todo[property];
+              el.classList.add(`todo-${property}`);
+              todoInfo.append(el);
+            }
           }
+          todoArticle.append(todoInfo);
           projectDiv.append(todoArticle);
         }
       }
       contentDiv.append(projectDiv);
     }
   }
+
+  // test data
+  createProject("project 2");
+  createProject("project 3");
+  createTodo("default", "task 1", "description", "09/08/24", "priority");
 
   updateDisplay();
 })();
