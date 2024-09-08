@@ -1,1 +1,21 @@
 @import "reset.css";
+
+body {
+  padding: 40px;
+  font-family: system-ui, sans-serif;
+}
+
+h1 {
+  padding-bottom: 20px;
+}
+
+#content {
+  display: flex;
+  gap: 20px;
+}
+
+.project {
+  background-color: lightgray;
+  padding: 10px;
+  min-width: 300px;
+}

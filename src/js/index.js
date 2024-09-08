@@ -9,6 +9,7 @@ const displayController = (function() {
   const updateDisplay = () => {
     for (const projectName of getProjectNames()) {
       const projectDiv = document.createElement("div");
+      projectDiv.classList.add("project");
       const projectHeader = document.createElement("h2");
 
       projectHeader.textContent = projectName;
