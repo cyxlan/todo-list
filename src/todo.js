@@ -1,4 +1,4 @@
-import { addTodoToProject } from "./project"
+import { addTodoToProject, getProjectTodos } from "./project"
 
 function createTodo(project, name, desc, dueDate, priority) {
   const todo = { complete: false, name, desc, dueDate, priority };
@@ -13,8 +13,15 @@ function editTodo(todo, property, value) {
   todo[property] = value;
 }
 
+function deleteTodo(project, todo) {
+  const todos = getProjectTodos(project);
+  const index = todos.indexOf(todo);
+  todos.splice(index, 1);
+}
+
 export {
   createTodo,
   toggleTodoComplete,
-  editTodo
+  editTodo,
+  deleteTodo
 }
