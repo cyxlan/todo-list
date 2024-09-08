@@ -9,7 +9,12 @@ function toggleTodoComplete(todo) {
   todo.complete = !todo.complete;
 }
 
+function editTodo(todo, property, value) {
+  todo[property] = value;
+}
+
 export {
   createTodo,
-  toggleTodoComplete
+  toggleTodoComplete,
+  editTodo
 }
