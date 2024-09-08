@@ -12,7 +12,7 @@ const displayController = (function() {
         console.log("No tasks yet")
       } else {
         for (const todo of todos) {
-          console.log(todo);
+          console.log({...todo});
         }
       }
     }
