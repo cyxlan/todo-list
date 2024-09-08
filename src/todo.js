@@ -5,6 +5,11 @@ function createTodo(project, name, desc, dueDate, priority) {
   addTodoToProject(project, todo);
 }
 
+function toggleTodoComplete(todo) {
+  todo.complete = !todo.complete;
+}
+
 export {
-  createTodo
+  createTodo,
+  toggleTodoComplete
 }

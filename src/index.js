@@ -1,5 +1,5 @@
 import { createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
-import { createTodo } from "./todo";
+import { createTodo, toggleTodoComplete } from "./todo";
 
 const displayController = (function() {
   const printTodoList = () => {
