@@ -19,9 +19,15 @@ function deleteTodo(project, todo) {
   todos.splice(index, 1);
 }
 
+function changeTodoProject(project, newProject, todo) {
+  deleteTodo(project, todo);
+  addTodoToProject(newProject, todo);
+}
+
 export {
   createTodo,
   toggleTodoComplete,
   editTodo,
-  deleteTodo
+  deleteTodo,
+  changeTodoProject
 }
