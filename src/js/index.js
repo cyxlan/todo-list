@@ -1,6 +1,8 @@
 import { createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
 import { createTodo, toggleTodoComplete, editTodo, deleteTodo, changeTodoProject } from "./todo";
 
+import "../css/index.css";
+
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
 
