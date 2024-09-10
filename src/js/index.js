@@ -7,9 +7,12 @@ const displayController = (function() {
   const contentDiv = document.querySelector("#content");
 
   const updateDisplay = () => {
+    contentDiv.textContent = "";
+
     for (const projectName of getProjectNames()) {
       const projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
+      projectDiv.dataset.name = projectName;
       const projectHeader = document.createElement("h2");
 
       projectHeader.textContent = projectName;
@@ -51,7 +54,20 @@ const displayController = (function() {
 
           todoInfo.append(name, desc, dueDate, priority);
 
-          todoArticle.append(todoInfo);
+          const deleteBtn = document.createElement("button");
+          deleteBtn.setAttribute("type", "button");
+          deleteBtn.classList.add("delete-btn");
+          deleteBtn.textContent = "X";
+          deleteBtn.addEventListener("click", (e) => {
+            // get todo id and project name
+            const todo = e.target.parentElement;
+            const id = todo.dataset.id;
+            const project = todo.parentElement.dataset.name;
+            deleteTodo(project, id);
+            updateDisplay();
+          })
+
+          todoArticle.append(todoInfo, deleteBtn);
           projectDiv.append(todoArticle);
         }
       }
