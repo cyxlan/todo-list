@@ -24,11 +24,15 @@ const displayController = (function() {
         for (const todo of todos) {
           const todoArticle = document.createElement("article");
           todoArticle.classList.add("todo");
+          todoArticle.dataset.id = todo.id;
           const todoInfo = document.createElement("div");
           todoInfo.classList.add("todo-info");
 
           for (const property in todo) {
-            if (property === "complete") {
+            if (property === "id") {
+              continue;
+            }
+            else if (property === "complete") {
               const checkbox = document.createElement("input");
               checkbox.setAttribute("type", "checkbox");
               todoArticle.append(checkbox);

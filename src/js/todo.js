@@ -1,7 +1,11 @@
 import { addTodoToProject, getProjectTodos } from "./project"
 
+let idCount = 0;
+
 function createTodo(project, name, desc, dueDate, priority) {
-  const todo = { complete: false, name, desc, dueDate, priority };
+  // generate unique id to access todo by later
+  const id = idCount++;
+  const todo = { id, complete: false, name, desc, dueDate, priority };
   addTodoToProject(project, todo);
 }
 
