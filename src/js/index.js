@@ -25,29 +25,32 @@ const displayController = (function() {
           const todoArticle = document.createElement("article");
           todoArticle.classList.add("todo");
           todoArticle.dataset.id = todo.id;
+
+          const checkbox = document.createElement("input");
+          checkbox.setAttribute("type", "checkbox");
+          todoArticle.append(checkbox);
+
           const todoInfo = document.createElement("div");
           todoInfo.classList.add("todo-info");
 
-          for (const property in todo) {
-            if (property === "id") {
-              continue;
-            }
-            else if (property === "complete") {
-              const checkbox = document.createElement("input");
-              checkbox.setAttribute("type", "checkbox");
-              todoArticle.append(checkbox);
-            } else {
-              let el;
-              if (property === "name") {
-                el = document.createElement("h3");
-              } else {
-                el = document.createElement("p");
-              }
-              el.textContent = todo[property];
-              el.classList.add(`todo-${property}`);
-              todoInfo.append(el);
-            }
-          }
+          const name = document.createElement("h3");
+          name.textContent = todo.name;
+          name.classList.add("todo-name");
+
+          const desc = document.createElement("p");
+          desc.textContent = todo.desc;
+          desc.classList.add("todo-desc");
+
+          const dueDate = document.createElement("p");
+          dueDate.textContent = todo.dueDate;
+          dueDate.classList.add("todo-dueDate");
+
+          const priority = document.createElement("p");
+          priority.textContent = todo.priority;
+          priority.classList.add("todo-priority");
+
+          todoInfo.append(name, desc, dueDate, priority);
+
           todoArticle.append(todoInfo);
           projectDiv.append(todoArticle);
         }
