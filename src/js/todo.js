@@ -36,6 +36,7 @@ function changeTodoProject(project, newProject, id) {
 
 export {
   createTodo,
+  getTodo,
   toggleTodoComplete,
   editTodo,
   deleteTodo,

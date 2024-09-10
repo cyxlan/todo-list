@@ -1,10 +1,13 @@
 import { createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
-import { createTodo, toggleTodoComplete, editTodo, deleteTodo, changeTodoProject } from "./todo";
+import { createTodo, getTodo, toggleTodoComplete, editTodo, deleteTodo, changeTodoProject } from "./todo";
 
 import "../css/index.css";
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
+
+  const getProjectName = (project) => project.dataset.name;
+  const getTodoId = (todo) => todo.dataset.id;
 
   const updateDisplay = () => {
     contentDiv.textContent = "";
@@ -31,6 +34,12 @@ const displayController = (function() {
 
           const checkbox = document.createElement("input");
           checkbox.setAttribute("type", "checkbox");
+          if (getTodo(getProjectName(projectDiv), getTodoId(todoArticle)).complete) {
+            checkbox.checked = true;
+          }
+          checkbox.addEventListener("change", () => {
+            toggleTodoComplete(getProjectName(projectDiv), getTodoId(todoArticle));
+          })
           todoArticle.append(checkbox);
 
           const todoInfo = document.createElement("div");
@@ -58,12 +67,8 @@ const displayController = (function() {
           deleteBtn.setAttribute("type", "button");
           deleteBtn.classList.add("delete-btn");
           deleteBtn.textContent = "X";
-          deleteBtn.addEventListener("click", (e) => {
-            // get todo id and project name
-            const todo = e.target.parentElement;
-            const id = todo.dataset.id;
-            const project = todo.parentElement.dataset.name;
-            deleteTodo(project, id);
+          deleteBtn.addEventListener("click", () => {
+            deleteTodo(getProjectName(projectDiv), getTodoId(todoArticle));
             updateDisplay();
           })
 
@@ -79,6 +84,7 @@ const displayController = (function() {
   createProject("project 2");
   createProject("project 3");
   createTodo("default", "task 1", "description", "09/08/24", "priority");
+  createTodo("default", "task 2", "description", "09/08/24", "priority");
 
   updateDisplay();
 })();
