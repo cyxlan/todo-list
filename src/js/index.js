@@ -78,6 +78,20 @@ const displayController = (function() {
       }
       contentDiv.append(projectDiv);
     }
+
+    const newProjectBtn = document.createElement("button");
+    newProjectBtn.setAttribute("type", "button");
+    newProjectBtn.textContent = "New project";
+    newProjectBtn.addEventListener("click", () => {
+      const projectName = prompt("Project name:");
+      try {
+        createProject(projectName);
+      } catch (error) {
+        alert(error);
+      }
+      updateDisplay();
+    })
+    contentDiv.append(newProjectBtn);
   }
 
   // test data

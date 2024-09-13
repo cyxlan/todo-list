@@ -12,6 +12,7 @@ h1 {
 #content {
   display: flex;
   gap: 20px;
+  align-items: flex-start;
 }
 
 .project {
