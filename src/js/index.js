@@ -84,10 +84,12 @@ const displayController = (function() {
     newProjectBtn.textContent = "New project";
     newProjectBtn.addEventListener("click", () => {
       const projectName = prompt("Project name:");
-      try {
-        createProject(projectName);
-      } catch (error) {
-        alert(error);
+      if (projectName !== null && projectName !== "") {
+        try {
+          createProject(projectName);
+        } catch (error) {
+          alert(error);
+        }
       }
       updateDisplay();
     })
