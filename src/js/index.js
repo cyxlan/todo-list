@@ -80,10 +80,16 @@ const displayController = (function() {
     }
 
     const newProjectBtn = document.createElement("button");
+    const dialog = document.querySelector('#dialog');
     newProjectBtn.setAttribute("type", "button");
     newProjectBtn.textContent = "New project";
     newProjectBtn.addEventListener("click", () => {
-      const projectName = prompt("Project name:");
+      dialog.showModal();
+    })
+    const dialogSubmit = document.querySelector('#submit-btn');
+    const nameInput = document.querySelector('#form-name');
+    dialogSubmit.addEventListener("click", () => {
+      const projectName = nameInput.value;
       if (projectName !== null && projectName !== "") {
         try {
           createProject(projectName);
