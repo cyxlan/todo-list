@@ -7,7 +7,59 @@ const displayController = (function() {
   const contentDiv = document.querySelector("#content");
 
   const getProjectName = (project) => project.dataset.name;
-  const getTodoId = (todo) => todo.dataset.id;
+
+  const createTodoArticle = (projectDiv, todo) => {
+    const todoArticle = document.createElement("article");
+    todoArticle.classList.add("todo");
+
+    const projectName = getProjectName(projectDiv);
+    const todoId = todo.id;
+
+    const checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    // if todo is complete, check checkbox
+    if (getTodo(projectName, todoId).complete) {
+      checkbox.checked = true;
+    }
+    // when checkbox is clicked, toggle complete status
+    checkbox.addEventListener("change", () => {
+      toggleTodoComplete(projectName, todoId);
+    })
+    todoArticle.append(checkbox);
+
+    const todoInfo = document.createElement("div");
+    todoInfo.classList.add("todo-info");
+
+    const name = document.createElement("h3");
+    name.textContent = todo.name;
+    name.classList.add("todo-name");
+
+    const desc = document.createElement("p");
+    desc.textContent = todo.desc;
+    desc.classList.add("todo-desc");
+
+    const dueDate = document.createElement("p");
+    dueDate.textContent = todo.dueDate;
+    dueDate.classList.add("todo-dueDate");
+
+    const priority = document.createElement("p");
+    priority.textContent = todo.priority;
+    priority.classList.add("todo-priority");
+
+    todoInfo.append(name, desc, dueDate, priority);
+
+    const deleteBtn = document.createElement("button");
+    deleteBtn.setAttribute("type", "button");
+    deleteBtn.classList.add("delete-btn");
+    deleteBtn.textContent = "X";
+    deleteBtn.addEventListener("click", () => {
+      deleteTodo(projectName, todoId);
+      updateDisplay();
+    })
+
+    todoArticle.append(todoInfo, deleteBtn);
+    return todoArticle;
+  }
 
   const updateDisplay = () => {
     contentDiv.textContent = "";
@@ -28,52 +80,7 @@ const displayController = (function() {
         projectDiv.append(noTasksNote);
       } else {
         for (const todo of todos) {
-          const todoArticle = document.createElement("article");
-          todoArticle.classList.add("todo");
-          todoArticle.dataset.id = todo.id;
-
-          const checkbox = document.createElement("input");
-          checkbox.setAttribute("type", "checkbox");
-          if (getTodo(getProjectName(projectDiv), getTodoId(todoArticle)).complete) {
-            checkbox.checked = true;
-          }
-          checkbox.addEventListener("change", () => {
-            toggleTodoComplete(getProjectName(projectDiv), getTodoId(todoArticle));
-          })
-          todoArticle.append(checkbox);
-
-          const todoInfo = document.createElement("div");
-          todoInfo.classList.add("todo-info");
-
-          const name = document.createElement("h3");
-          name.textContent = todo.name;
-          name.classList.add("todo-name");
-
-          const desc = document.createElement("p");
-          desc.textContent = todo.desc;
-          desc.classList.add("todo-desc");
-
-          const dueDate = document.createElement("p");
-          dueDate.textContent = todo.dueDate;
-          dueDate.classList.add("todo-dueDate");
-
-          const priority = document.createElement("p");
-          priority.textContent = todo.priority;
-          priority.classList.add("todo-priority");
-
-          todoInfo.append(name, desc, dueDate, priority);
-
-          const deleteBtn = document.createElement("button");
-          deleteBtn.setAttribute("type", "button");
-          deleteBtn.classList.add("delete-btn");
-          deleteBtn.textContent = "X";
-          deleteBtn.addEventListener("click", () => {
-            deleteTodo(getProjectName(projectDiv), getTodoId(todoArticle));
-            updateDisplay();
-          })
-
-          todoArticle.append(todoInfo, deleteBtn);
-          projectDiv.append(todoArticle);
+          projectDiv.append(createTodoArticle(projectDiv, todo));
         }
       }
       contentDiv.append(projectDiv);
