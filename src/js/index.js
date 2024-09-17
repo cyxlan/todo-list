@@ -84,24 +84,29 @@ const displayController = (function() {
     newProjectBtn.setAttribute("type", "button");
     newProjectBtn.textContent = "New project";
 
-    const dialogSubmit = document.querySelector('#submit-btn');
-    const nameInput = document.querySelector('#form-name');
     newProjectBtn.addEventListener("click", () => {
       nameInput.value = "";
       dialog.showModal();
     })
 
-    dialogSubmit.addEventListener("click", () => {
-      const projectName = nameInput.value;
-      try {
-        createProject(projectName);
-        updateDisplay();
-      } catch (error) {
-        alert(error);
-      }
-    })
     contentDiv.append(newProjectBtn);
   }
+
+  const nameInput = document.querySelector('#form-name');
+  const dialogSubmit = document.querySelector('#submit-btn');
+  const submitNewProject = (e) => {
+    const projectName = nameInput.value;
+    try {
+      createProject(projectName);
+      updateDisplay();
+    } catch (error) {
+      // prevent refresh after alert dismissed
+      e.preventDefault();
+      alert(error);
+      nameInput.value = "";
+    }
+  }
+  dialogSubmit.addEventListener("click", submitNewProject);
 
   // test data
   createProject("project 2");
