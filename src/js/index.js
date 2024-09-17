@@ -5,6 +5,7 @@ import "../css/index.css";
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
+  const dialog = document.querySelector('#dialog');
 
   const createTodoArticle = (projectName, todo) => {
     const todoArticle = document.createElement("article");
@@ -86,13 +87,18 @@ const displayController = (function() {
     }
 
     const newProjectBtn = document.createElement("button");
-    const dialog = document.querySelector('#dialog');
     newProjectBtn.setAttribute("type", "button");
     newProjectBtn.textContent = "New project";
 
     newProjectBtn.addEventListener("click", () => {
       nameInput.value = "";
       dialog.showModal();
+
+      const dialogHeader = document.querySelector('#dialog h2');
+      dialogHeader.textContent = "New Project";
+
+      const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
+      nameInputLabel.textContent = "Project name";
     })
 
     contentDiv.append(newProjectBtn);
