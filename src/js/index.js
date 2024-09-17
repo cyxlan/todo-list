@@ -83,11 +83,14 @@ const displayController = (function() {
     const dialog = document.querySelector('#dialog');
     newProjectBtn.setAttribute("type", "button");
     newProjectBtn.textContent = "New project";
-    newProjectBtn.addEventListener("click", () => {
-      dialog.showModal();
-    })
+
     const dialogSubmit = document.querySelector('#submit-btn');
     const nameInput = document.querySelector('#form-name');
+    newProjectBtn.addEventListener("click", () => {
+      nameInput.value = "";
+      dialog.showModal();
+    })
+
     dialogSubmit.addEventListener("click", () => {
       const projectName = nameInput.value;
       try {
@@ -102,7 +105,6 @@ const displayController = (function() {
 
   // test data
   createProject("project 2");
-  createProject("project 3");
   createTodo("default", "task 1", "description", "09/08/24", "priority");
   createTodo("default", "task 2", "description", "09/08/24", "priority");
 
