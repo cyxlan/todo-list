@@ -1,29 +1,22 @@
 import { createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
-import { createTodo, getTodo, toggleTodoComplete, editTodo, deleteTodo, changeTodoProject } from "./todo";
+import { createTodo, toggleTodoComplete, editTodo, deleteTodo, changeTodoProject } from "./todo";
 
 import "../css/index.css";
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
 
-  const getProjectName = (project) => project.dataset.name;
-
-  const createTodoArticle = (projectDiv, todo) => {
+  const createTodoArticle = (projectName, todo) => {
     const todoArticle = document.createElement("article");
     todoArticle.classList.add("todo");
 
-    const projectName = getProjectName(projectDiv);
-    const todoId = todo.id;
-
     const checkbox = document.createElement("input");
     checkbox.setAttribute("type", "checkbox");
-    // if todo is complete, check checkbox
-    if (getTodo(projectName, todoId).complete) {
+    if (todo.complete) {
       checkbox.checked = true;
     }
-    // when checkbox is clicked, toggle complete status
     checkbox.addEventListener("change", () => {
-      toggleTodoComplete(projectName, todoId);
+      toggleTodoComplete(todo);
     })
     todoArticle.append(checkbox);
 
@@ -53,7 +46,7 @@ const displayController = (function() {
     deleteBtn.classList.add("delete-btn");
     deleteBtn.textContent = "X";
     deleteBtn.addEventListener("click", () => {
-      deleteTodo(projectName, todoId);
+      deleteTodo(projectName, todo);
       updateDisplay();
     })
 
@@ -67,7 +60,6 @@ const displayController = (function() {
     for (const projectName of getProjectNames()) {
       const projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
-      projectDiv.dataset.name = projectName;
       const projectHeader = document.createElement("h2");
 
       projectHeader.textContent = projectName;
@@ -80,7 +72,7 @@ const displayController = (function() {
         projectDiv.append(noTasksNote);
       } else {
         for (const todo of todos) {
-          projectDiv.append(createTodoArticle(projectDiv, todo));
+          projectDiv.append(createTodoArticle(projectName, todo));
         }
       }
       contentDiv.append(projectDiv);
