@@ -9,13 +9,14 @@ const getProject = (name) => {
 }
 
 const createProject = (name) => {
-  // prevent creating a project with the same name as one that already exists
-  if (getProject(name)) {
+  // prevent creating a project with no name or the same name as one that already exists
+  if (name === "") {
+    throw new Error(`Project name cannot be empty.`);
+  } else if (getProject(name)) {
     throw new Error(`Project named "${name}" already exists.`);
-  } else {
-    const project = { name, todos: [] };
-    projects.push(project);
   }
+  const project = { name, todos: [] };
+  projects.push(project);
 }
 createProject("default");
 

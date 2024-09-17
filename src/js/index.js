@@ -90,14 +90,12 @@ const displayController = (function() {
     const nameInput = document.querySelector('#form-name');
     dialogSubmit.addEventListener("click", () => {
       const projectName = nameInput.value;
-      if (projectName !== null && projectName !== "") {
-        try {
-          createProject(projectName);
-        } catch (error) {
-          alert(error);
-        }
+      try {
+        createProject(projectName);
+        updateDisplay();
+      } catch (error) {
+        alert(error);
       }
-      updateDisplay();
     })
     contentDiv.append(newProjectBtn);
   }
