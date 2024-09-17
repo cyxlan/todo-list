@@ -75,6 +75,13 @@ const displayController = (function() {
           projectDiv.append(createTodoArticle(projectName, todo));
         }
       }
+
+      const newTodoBtn = document.createElement("button");
+      newTodoBtn.setAttribute("type", "button");
+      newTodoBtn.classList.add("new-todo-btn");
+      newTodoBtn.textContent = "New to-do";
+      projectDiv.append(newTodoBtn);
+
       contentDiv.append(projectDiv);
     }
 
