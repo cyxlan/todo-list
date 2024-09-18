@@ -91,22 +91,29 @@ const displayController = (function() {
     newProjectBtn.textContent = "New project";
 
     newProjectBtn.addEventListener("click", () => {
-      nameInput.value = "";
+      newProjectDialog();
       dialog.showModal();
-
-      const dialogHeader = document.querySelector('#dialog h2');
-      dialogHeader.textContent = "New Project";
-
-      const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
-      nameInputLabel.textContent = "Project name";
     })
 
     contentDiv.append(newProjectBtn);
   }
 
-  const nameInput = document.querySelector('#form-name');
-  const dialogSubmit = document.querySelector('#submit-btn');
+  const newProjectDialog = () => {
+    const dialogHeader = document.querySelector('#dialog h2');
+    dialogHeader.textContent = "New Project";
+
+    const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
+    nameInputLabel.textContent = "Project name";
+
+    const nameInput = document.querySelector('#form-name');
+    nameInput.value = "";
+
+    const dialogSubmit = document.querySelector('#submit-btn');
+    dialogSubmit.addEventListener("click", submitNewProject);
+  }
+
   const submitNewProject = (e) => {
+    const nameInput = document.querySelector('#form-name');
     const projectName = nameInput.value;
     try {
       createProject(projectName);
@@ -118,7 +125,6 @@ const displayController = (function() {
       nameInput.value = "";
     }
   }
-  dialogSubmit.addEventListener("click", submitNewProject);
 
   // test data
   createProject("project 2");
