@@ -56,16 +56,14 @@ const displayController = (function() {
   }
 
   const updateDisplay = () => {
-    contentDiv.textContent = "";
-
-    for (const projectName of getProjectNames()) {
+    const createProjectDiv = (projectName) => {
       const projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
+  
       const projectHeader = document.createElement("h2");
-
       projectHeader.textContent = projectName;
       projectDiv.append(projectHeader);
-
+  
       const todos = getProjectTodos(projectName);
       if (todos.length === 0) {
         const noTasksNote = document.createElement("p");
@@ -76,20 +74,26 @@ const displayController = (function() {
           projectDiv.append(createTodoArticle(projectName, todo));
         }
       }
-
+  
       const newTodoBtn = document.createElement("button");
       newTodoBtn.setAttribute("type", "button");
       newTodoBtn.classList.add("new-todo-btn");
       newTodoBtn.textContent = "New to-do";
-
+  
       newTodoBtn.addEventListener("click", () => {
         newTodoDialog(projectName);
         dialog.showModal();
       })
-
+  
       projectDiv.append(newTodoBtn);
 
-      contentDiv.append(projectDiv);
+      return projectDiv;
+    }
+
+    contentDiv.textContent = "";
+
+    for (const projectName of getProjectNames()) {
+      contentDiv.append(createProjectDiv(projectName));
     }
 
     const newProjectBtn = document.createElement("button");
