@@ -169,6 +169,17 @@ const displayController = (function() {
       projectSelect.append(option);
     }
 
+    const prioritySelectLabel = document.createElement('label');
+    prioritySelectLabel.textContent = "Priority";
+    prioritySelectLabel.setAttribute("for", "priority-select");
+
+    const prioritySelect = document.createElement('select');
+    prioritySelect.id = "priority-select";
+    for (const priority of ["Low", "Medium", "High"]) {
+      const option = new Option(priority, priority.toLowerCase());
+      prioritySelect.append(option);
+    }
+
     const descInputLabel = document.createElement('label');
     descInputLabel.textContent = "Description";
     descInputLabel.setAttribute("for", "desc-input");
@@ -176,10 +187,10 @@ const displayController = (function() {
     const descInput = document.createElement('textarea');
     descInput.id = "desc-input";
 
-    nameInput.after(projectSelectLabel, projectSelect, descInputLabel, descInput);
+    nameInput.after(projectSelectLabel, projectSelect, prioritySelectLabel, prioritySelect, descInputLabel, descInput);
 
     dialogSubmit.addEventListener("click", (e) => {
-      submitForm(e, () => { createTodo(projectSelect.value, nameInput.value, descInput.value) })
+      submitForm(e, () => { createTodo(projectSelect.value, nameInput.value, descInput.value, "", prioritySelect.value) })
     });
   }
 
