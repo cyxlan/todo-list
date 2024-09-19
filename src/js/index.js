@@ -83,7 +83,7 @@ const displayController = (function() {
       newTodoBtn.textContent = "New to-do";
 
       newTodoBtn.addEventListener("click", () => {
-        newTodoDialog(projectName);
+        // newTodoDialog(projectName);
         dialog.showModal();
       })
 
@@ -104,27 +104,47 @@ const displayController = (function() {
     contentDiv.append(newProjectBtn);
   }
 
-  const newProjectDialog = () => {
-    const dialogHeader = document.querySelector('#dialog h2');
-    dialogHeader.textContent = "New Project";
+  const generateDialogForm = (headerText, nameLabelText, submitFunction) => {
+    const dialogForm = document.querySelector('#dialog-form');
+    dialogForm.textContent = "";
 
-    const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
-    nameInputLabel.textContent = "Project name";
+    const dialogHeader = document.createElement('h2');
+    dialogHeader.textContent = headerText;
 
-    const nameInput = document.querySelector('#form-name');
-    nameInput.value = "";
+    const nameInputLabel = document.createElement('label');
+    nameInputLabel.setAttribute("for", "name-input");
+    nameInputLabel.textContent = nameLabelText;
 
-    const dialogSubmit = document.querySelector('#submit-btn');
-    dialogSubmit.addEventListener("click", submitNewProject);
+    const nameInput = document.createElement('input');
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('autofocus', 'autofocus');
+    nameInput.id = "name-input";
 
-    const dialogCancel = document.querySelector('#cancel-btn');
+    const dialogSubmit = document.createElement('button');
+    dialogSubmit.setAttribute('type', 'submit');
+    dialogSubmit.id = "submit-btn";
+    dialogSubmit.textContent = "Submit";
+
+    dialogSubmit.addEventListener("click", submitFunction);
+
+    const dialogCancel = document.createElement('button');
+    dialogCancel.setAttribute('type', 'button');
+    dialogCancel.id = "cancel-btn";
+    dialogCancel.textContent = "Cancel";
+
     dialogCancel.addEventListener("click", () => {
       dialog.close();
     })
+
+    dialogForm.append(dialogHeader, nameInputLabel, nameInput, dialogSubmit, dialogCancel);
+  }
+
+  const newProjectDialog = () => {
+    generateDialogForm("New Project", "Project name", submitNewProject);
   }
 
   const submitNewProject = (e) => {
-    const nameInput = document.querySelector('#form-name');
+    const nameInput = document.querySelector('#name-input');
     const projectName = nameInput.value;
     try {
       createProject(projectName);
