@@ -1,4 +1,4 @@
-import { createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
+import { DuplicateNameError, createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
 import { createTodo, toggleTodoComplete, editTodo, deleteTodo, changeTodoProject } from "./todo";
 
 import "../css/index.css";
@@ -184,15 +184,17 @@ const displayController = (function() {
   }
 
   const submitForm = (e, createFunction) => {
-    const nameInput = document.querySelector('#name-input');
     try {
       createFunction();
       updateDisplay();
     } catch (error) {
       // prevent refresh after alert dismissed
       e.preventDefault();
-      alert(error);
-      nameInput.value = "";
+      alert(error.message);
+      // if error was duplicate project name, clear name input
+      if (error instanceof DuplicateNameError) {
+        document.querySelector('#name-input').value = "";
+      }
     }
   }
 

@@ -8,12 +8,18 @@ const getProject = (name) => {
   }
 }
 
+class DuplicateNameError extends Error {
+  constructor(message) {
+    super(message);
+    this.name = this.constructor.name;
+  }
+}
 const createProject = (name) => {
   // prevent creating a project with no name or the same name as one that already exists
   if (name === "") {
     throw new Error(`Project name cannot be empty.`);
   } else if (getProject(name)) {
-    throw new Error(`Project named "${name}" already exists.`);
+    throw new DuplicateNameError(`Project named "${name}" already exists.`);
   }
   const project = { name, todos: [] };
   projects.push(project);
@@ -46,6 +52,7 @@ const addTodoToProject = (projectName, todo) => {
 }
 
 export {
+  DuplicateNameError,
   createProject,
   renameProject,
   deleteProject,
