@@ -81,6 +81,12 @@ const displayController = (function() {
       newTodoBtn.setAttribute("type", "button");
       newTodoBtn.classList.add("new-todo-btn");
       newTodoBtn.textContent = "New to-do";
+
+      newTodoBtn.addEventListener("click", () => {
+        newTodoDialog();
+        dialog.showModal();
+      })
+
       projectDiv.append(newTodoBtn);
 
       contentDiv.append(projectDiv);
@@ -128,6 +134,38 @@ const displayController = (function() {
       e.preventDefault();
       alert(error);
       nameInput.value = "";
+    }
+  }
+    
+  const newTodoDialog = () => {
+    const dialogHeader = document.querySelector('#dialog h2');
+    dialogHeader.textContent = "New To-Do";
+
+    const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
+    nameInputLabel.textContent = "To-Do name";
+
+    const nameInput = document.querySelector('#form-name');
+    nameInput.value = "";
+
+    const dialogSubmit = document.querySelector('#submit-btn');
+    dialogSubmit.addEventListener("click", submitNewTodo);
+
+    const dialogCancel = document.querySelector('#cancel-btn');
+    dialogCancel.addEventListener("click", () => {
+      dialog.close();
+    })
+  }
+
+  const submitNewTodo = (e) => {
+    const nameInput = document.querySelector('#form-name');
+    const todoName = nameInput.value;
+    try {
+      createTodo("default", todoName);
+      updateDisplay();
+    } catch (error) {
+      // prevent refresh after alert dismissed
+      e.preventDefault();
+      alert(error);
     }
   }
 
