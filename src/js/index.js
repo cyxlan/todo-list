@@ -142,20 +142,6 @@ const displayController = (function() {
   const newProjectDialog = () => {
     generateDialogForm("New Project", "Project name", submitNewProject);
   }
-
-  const submitNewProject = (e) => {
-    const nameInput = document.querySelector('#name-input');
-    const projectName = nameInput.value;
-    try {
-      createProject(projectName);
-      updateDisplay();
-    } catch (error) {
-      // prevent refresh after alert dismissed
-      e.preventDefault();
-      alert(error);
-      nameInput.value = "";
-    }
-  }
     
   const newTodoDialog = (currentProject) => {
     generateDialogForm("New To-Do", "To-do name", submitNewTodo);
@@ -186,19 +172,30 @@ const displayController = (function() {
     nameInput.after(projectSelectLabel, projectSelect, descInputLabel, descInput);
   }
 
-  const submitNewTodo = (e) => {
+  const submitForm = (e, createFunction) => {
     const nameInput = document.querySelector('#name-input');
-    const todoName = nameInput.value;
-    const project = document.querySelector('#project-select').value;
-    const desc = document.querySelector('#desc-input').value;
     try {
-      createTodo(project, todoName, desc);
+      createFunction();
       updateDisplay();
     } catch (error) {
       // prevent refresh after alert dismissed
       e.preventDefault();
       alert(error);
+      nameInput.value = "";
     }
+  }
+
+  const submitNewProject = (e) => {
+    const name = document.querySelector('#name-input').value;
+    submitForm(e, () => { createProject(name) });
+  }
+
+  const submitNewTodo = (e) => {
+    const name = document.querySelector('#name-input').value;
+    const project = document.querySelector('#project-select').value;
+    const desc = document.querySelector('#desc-input').value;
+
+    submitForm(e, () => { createTodo(project, name, desc) });
   }
 
   // test data
