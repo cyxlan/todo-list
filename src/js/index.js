@@ -110,6 +110,11 @@ const displayController = (function() {
 
     const dialogSubmit = document.querySelector('#submit-btn');
     dialogSubmit.addEventListener("click", submitNewProject);
+
+    const dialogCancel = document.querySelector('#cancel-btn');
+    dialogCancel.addEventListener("click", () => {
+      dialog.close();
+    })
   }
 
   const submitNewProject = (e) => {
