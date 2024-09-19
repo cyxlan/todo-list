@@ -83,7 +83,7 @@ const displayController = (function() {
       newTodoBtn.textContent = "New to-do";
 
       newTodoBtn.addEventListener("click", () => {
-        // newTodoDialog(projectName);
+        newTodoDialog(projectName);
         dialog.showModal();
       })
 
@@ -158,14 +158,7 @@ const displayController = (function() {
   }
     
   const newTodoDialog = (currentProject) => {
-    const dialogHeader = document.querySelector('#dialog h2');
-    dialogHeader.textContent = "New To-Do";
-
-    const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
-    nameInputLabel.textContent = "To-do name";
-
-    const nameInput = document.querySelector('#form-name');
-    nameInput.value = "";
+    generateDialogForm("New To-Do", "To-do name", submitNewTodo);
 
     const projectSelectLabel = document.createElement('label');
     projectSelectLabel.textContent = "Project";
@@ -189,19 +182,12 @@ const displayController = (function() {
     const descInput = document.createElement('textarea');
     descInput.id = "desc-input";
 
+    const nameInput = document.querySelector('#name-input');
     nameInput.after(projectSelectLabel, projectSelect, descInputLabel, descInput);
-
-    const dialogSubmit = document.querySelector('#submit-btn');
-    dialogSubmit.addEventListener("click", submitNewTodo);
-
-    const dialogCancel = document.querySelector('#cancel-btn');
-    dialogCancel.addEventListener("click", () => {
-      dialog.close();
-    })
   }
 
   const submitNewTodo = (e) => {
-    const nameInput = document.querySelector('#form-name');
+    const nameInput = document.querySelector('#name-input');
     const todoName = nameInput.value;
     const project = document.querySelector('#project-select').value;
     const desc = document.querySelector('#desc-input').value;
