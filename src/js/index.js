@@ -104,7 +104,7 @@ const displayController = (function() {
     contentDiv.append(newProjectBtn);
   }
 
-  const generateDialogForm = (headerText, nameLabelText, submitFunction) => {
+  const generateDialogForm = (headerText, nameLabelText) => {
     const dialogForm = document.querySelector('#dialog-form');
     dialogForm.textContent = "";
 
@@ -125,8 +125,6 @@ const displayController = (function() {
     dialogSubmit.id = "submit-btn";
     dialogSubmit.textContent = "Submit";
 
-    dialogSubmit.addEventListener("click", submitFunction);
-
     const dialogCancel = document.createElement('button');
     dialogCancel.setAttribute('type', 'button');
     dialogCancel.id = "cancel-btn";
@@ -137,14 +135,20 @@ const displayController = (function() {
     })
 
     dialogForm.append(dialogHeader, nameInputLabel, nameInput, dialogSubmit, dialogCancel);
+
+    return [dialogSubmit, nameInput];
   }
 
   const newProjectDialog = () => {
-    generateDialogForm("New Project", "Project name", submitNewProject);
+    const [dialogSubmit, nameInput] = generateDialogForm("New Project", "Project name");
+
+    dialogSubmit.addEventListener("click", (e) => {
+      submitForm(e, () => { createProject(nameInput.value) })
+    });
   }
     
   const newTodoDialog = (currentProject) => {
-    generateDialogForm("New To-Do", "To-do name", submitNewTodo);
+    const [dialogSubmit, nameInput] = generateDialogForm("New To-Do", "To-do name");
 
     const projectSelectLabel = document.createElement('label');
     projectSelectLabel.textContent = "Project";
@@ -168,8 +172,11 @@ const displayController = (function() {
     const descInput = document.createElement('textarea');
     descInput.id = "desc-input";
 
-    const nameInput = document.querySelector('#name-input');
     nameInput.after(projectSelectLabel, projectSelect, descInputLabel, descInput);
+
+    dialogSubmit.addEventListener("click", (e) => {
+      submitForm(e, () => { createTodo(projectSelect.value, nameInput.value, descInput.value) })
+    });
   }
 
   const submitForm = (e, createFunction) => {
@@ -183,19 +190,6 @@ const displayController = (function() {
       alert(error);
       nameInput.value = "";
     }
-  }
-
-  const submitNewProject = (e) => {
-    const name = document.querySelector('#name-input').value;
-    submitForm(e, () => { createProject(name) });
-  }
-
-  const submitNewTodo = (e) => {
-    const name = document.querySelector('#name-input').value;
-    const project = document.querySelector('#project-select').value;
-    const desc = document.querySelector('#desc-input').value;
-
-    submitForm(e, () => { createTodo(project, name, desc) });
   }
 
   // test data
