@@ -7,56 +7,56 @@ const displayController = (function() {
   const contentDiv = document.querySelector("#content");
   const dialog = document.querySelector('#dialog');
 
-  const createTodoArticle = (projectName, todo) => {
-    const todoArticle = document.createElement("article");
-    todoArticle.classList.add("todo");
-
-    const checkbox = document.createElement("input");
-    checkbox.setAttribute("type", "checkbox");
-    if (todo.complete) {
-      checkbox.checked = true;
-    }
-    checkbox.addEventListener("change", () => {
-      toggleTodoComplete(todo);
-    })
-    todoArticle.append(checkbox);
-
-    const todoInfo = document.createElement("div");
-    todoInfo.classList.add("todo-info");
-
-    const name = document.createElement("h3");
-    name.textContent = todo.name;
-    name.classList.add("todo-name");
-
-    const desc = document.createElement("p");
-    desc.textContent = todo.desc;
-    desc.classList.add("todo-desc");
-
-    const dueDate = document.createElement("p");
-    dueDate.textContent = todo.dueDate;
-    dueDate.classList.add("todo-dueDate");
-
-    const priority = document.createElement("p");
-    priority.textContent = todo.priority;
-    priority.classList.add("todo-priority");
-
-    todoInfo.append(name, desc, dueDate, priority);
-
-    const deleteBtn = document.createElement("button");
-    deleteBtn.setAttribute("type", "button");
-    deleteBtn.classList.add("delete-btn");
-    deleteBtn.textContent = "X";
-    deleteBtn.addEventListener("click", () => {
-      deleteTodo(projectName, todo);
-      updateDisplay();
-    })
-
-    todoArticle.append(todoInfo, deleteBtn);
-    return todoArticle;
-  }
-
   const updateDisplay = () => {
     const createProjectDiv = (projectName) => {
+      const createTodoArticle = (projectName, todo) => {
+        const todoArticle = document.createElement("article");
+        todoArticle.classList.add("todo");
+    
+        const checkbox = document.createElement("input");
+        checkbox.setAttribute("type", "checkbox");
+        if (todo.complete) {
+          checkbox.checked = true;
+        }
+        checkbox.addEventListener("change", () => {
+          toggleTodoComplete(todo);
+        })
+        todoArticle.append(checkbox);
+    
+        const todoInfo = document.createElement("div");
+        todoInfo.classList.add("todo-info");
+    
+        const name = document.createElement("h3");
+        name.textContent = todo.name;
+        name.classList.add("todo-name");
+    
+        const desc = document.createElement("p");
+        desc.textContent = todo.desc;
+        desc.classList.add("todo-desc");
+    
+        const dueDate = document.createElement("p");
+        dueDate.textContent = todo.dueDate;
+        dueDate.classList.add("todo-dueDate");
+    
+        const priority = document.createElement("p");
+        priority.textContent = todo.priority;
+        priority.classList.add("todo-priority");
+    
+        todoInfo.append(name, desc, dueDate, priority);
+    
+        const deleteBtn = document.createElement("button");
+        deleteBtn.setAttribute("type", "button");
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.textContent = "X";
+        deleteBtn.addEventListener("click", () => {
+          deleteTodo(projectName, todo);
+          updateDisplay();
+        })
+    
+        todoArticle.append(todoInfo, deleteBtn);
+        return todoArticle;
+      }
+      
       const projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
   
