@@ -83,7 +83,7 @@ const displayController = (function() {
       newTodoBtn.textContent = "New to-do";
 
       newTodoBtn.addEventListener("click", () => {
-        newTodoDialog();
+        newTodoDialog(projectName);
         dialog.showModal();
       })
 
@@ -137,7 +137,7 @@ const displayController = (function() {
     }
   }
     
-  const newTodoDialog = () => {
+  const newTodoDialog = (currentProject) => {
     const dialogHeader = document.querySelector('#dialog h2');
     dialogHeader.textContent = "New To-Do";
 
@@ -146,6 +146,23 @@ const displayController = (function() {
 
     const nameInput = document.querySelector('#form-name');
     nameInput.value = "";
+
+    const projectSelectLabel = document.createElement('label');
+    projectSelectLabel.textContent = "Project";
+    projectSelectLabel.setAttribute("for", "project-select");
+
+    const projectSelect = document.createElement('select');
+    projectSelect.id = "project-select";
+    for (const projectName of getProjectNames()) {
+      const option = new Option(projectName, projectName);
+      // if this dialog was triggered from a project, set that project to be selected by default
+      if (projectName === currentProject) {
+        option.setAttribute("selected", "true");
+      }
+      projectSelect.append(option);
+    }
+
+    nameInput.after(projectSelectLabel, projectSelect);
 
     const dialogSubmit = document.querySelector('#submit-btn');
     dialogSubmit.addEventListener("click", submitNewTodo);
@@ -159,8 +176,9 @@ const displayController = (function() {
   const submitNewTodo = (e) => {
     const nameInput = document.querySelector('#form-name');
     const todoName = nameInput.value;
+    const project = document.querySelector('#project-select').value;
     try {
-      createTodo("default", todoName);
+      createTodo(project, todoName);
       updateDisplay();
     } catch (error) {
       // prevent refresh after alert dismissed
