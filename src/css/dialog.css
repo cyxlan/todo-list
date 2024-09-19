@@ -17,5 +17,9 @@
     input[type="text"] {
       background-color: white;
     }
+    textarea {
+      width: 100%;
+      resize: vertical;
+    }
   }
 }

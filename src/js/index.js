@@ -142,7 +142,7 @@ const displayController = (function() {
     dialogHeader.textContent = "New To-Do";
 
     const nameInputLabel = document.querySelector('#dialog label[for="form-name"]');
-    nameInputLabel.textContent = "To-Do name";
+    nameInputLabel.textContent = "To-do name";
 
     const nameInput = document.querySelector('#form-name');
     nameInput.value = "";
@@ -162,7 +162,14 @@ const displayController = (function() {
       projectSelect.append(option);
     }
 
-    nameInput.after(projectSelectLabel, projectSelect);
+    const descInputLabel = document.createElement('label');
+    descInputLabel.textContent = "Description";
+    descInputLabel.setAttribute("for", "desc-input");
+
+    const descInput = document.createElement('textarea');
+    descInput.id = "desc-input";
+
+    nameInput.after(projectSelectLabel, projectSelect, descInputLabel, descInput);
 
     const dialogSubmit = document.querySelector('#submit-btn');
     dialogSubmit.addEventListener("click", submitNewTodo);
@@ -177,8 +184,9 @@ const displayController = (function() {
     const nameInput = document.querySelector('#form-name');
     const todoName = nameInput.value;
     const project = document.querySelector('#project-select').value;
+    const desc = document.querySelector('#desc-input').value;
     try {
-      createTodo(project, todoName);
+      createTodo(project, todoName, desc);
       updateDisplay();
     } catch (error) {
       // prevent refresh after alert dismissed
