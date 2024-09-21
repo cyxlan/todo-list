@@ -69,6 +69,11 @@ const displayController = (function() {
       const projectHeader = document.createElement("h2");
       projectHeader.textContent = projectName;
       projectDiv.append(projectHeader);
+
+      projectHeader.addEventListener('click', () => {
+        renameProjectDialog(projectName);
+        dialog.showModal();
+      })
   
       const todos = getProjectTodos(projectName);
       if (todos.length === 0) {
@@ -154,6 +159,15 @@ const displayController = (function() {
 
     dialogSubmit.addEventListener("click", (e) => {
       submitForm(e, () => { createProject(nameInput.value) })
+    });
+  }
+
+  const renameProjectDialog = (oldName) => {
+    const [dialogSubmit, nameInput] = generateDialogForm("Rename Project", "Project name");
+    nameInput.value = oldName;
+
+    dialogSubmit.addEventListener("click", (e) => {
+      submitForm(e, () => { renameProject(oldName, nameInput.value) })
     });
   }
     
