@@ -56,7 +56,7 @@ const displayController = (function() {
         todoArticle.append(todoInfo, deleteBtn);
 
         todoArticle.addEventListener('click', () => {
-          editTodoDialog(projectName, todo);
+          todoDialog(projectName, todo);
           dialog.showModal();
         })
 
@@ -87,7 +87,7 @@ const displayController = (function() {
       newTodoBtn.textContent = "New to-do";
   
       newTodoBtn.addEventListener("click", () => {
-        newTodoDialog(projectName);
+        todoDialog(projectName);
         dialog.showModal();
       })
   
@@ -206,10 +206,25 @@ const displayController = (function() {
     return { nameInput, projectSelect, dateInput, prioritySelect, descInput, dialogSubmit }; 
   }
 
-  const newTodoDialog = (projectName) => {
-    const todoForm = generateTodoForm(projectName, "New To-Do");
+  const todoDialog = (projectName, todo) => {
+    let todoForm;
+    // if editing an todo, fill in the fields with the existing values
+    if (todo) {
+      todoForm = generateTodoForm(projectName, "Edit To-Do");
+
+      todoForm.nameInput.value = todo.name;
+      todoForm.dateInput.value = todo.dueDate;
+      todoForm.prioritySelect.value = todo.priority;
+      todoForm.descInput.value = todo.desc;
+    } else {
+      todoForm = generateTodoForm(projectName, "New To-Do");
+    }
 
     todoForm.dialogSubmit.addEventListener("click", (e) => {
+      // if editing an todo, delete the old todo before creating a new one
+      if (todo) {
+        deleteTodo(projectName, todo);
+      };
       submitForm(e, () => { 
         createTodo(
           todoForm.projectSelect.value,
@@ -217,28 +232,7 @@ const displayController = (function() {
           todoForm.descInput.value,
           todoForm.dateInput.value,
           todoForm.prioritySelect.value)
-      })
-    });
-  }
-
-  const editTodoDialog = (projectName, todo) => {
-    const todoForm = generateTodoForm(projectName, "Edit To-Do");
-
-    todoForm.nameInput.value = todo.name;
-    todoForm.dateInput.value = todo.dueDate;
-    todoForm.prioritySelect.value = todo.priority;
-    todoForm.descInput.value = todo.desc;
-    
-    todoForm.dialogSubmit.addEventListener("click", (e) => {
-      deleteTodo(projectName, todo);
-      submitForm(e, () => { 
-        createTodo(
-          todoForm.projectSelect.value,
-          todoForm.nameInput.value,
-          todoForm.descInput.value,
-          todoForm.dateInput.value,
-          todoForm.prioritySelect.value)
-      })
+      });
     });
   }
 
