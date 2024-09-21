@@ -74,6 +74,16 @@ const displayController = (function() {
         renameProjectDialog(projectName);
         dialog.showModal();
       })
+
+      const deleteBtn = document.createElement("button");
+        deleteBtn.setAttribute("type", "button");
+        deleteBtn.classList.add("delete-btn");
+        deleteBtn.textContent = "X";
+        deleteBtn.addEventListener("click", () => {
+          deleteProject(projectName);
+          updateDisplay();
+        })
+      projectDiv.append(deleteBtn);
   
       const todos = getProjectTodos(projectName);
       if (todos.length === 0) {

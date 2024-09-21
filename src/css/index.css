@@ -17,6 +17,7 @@ h1 {
 }
 
 .project {
+  position: relative;
   background-color: lightgray;
   padding: 10px;
   min-width: 300px;
@@ -43,11 +44,12 @@ h1 {
     width: 20px;
     margin-top: 0.5rem;
   }
+}
 
-  .delete-btn {
-    min-width: fit-content;
-    position: absolute;
-    top: 0;
-    right: 5px;
-  }
+.project .delete-btn,
+.todo .delete-btn {
+  min-width: fit-content;
+  position: absolute;
+  top: 0;
+  right: 5px;
 }
