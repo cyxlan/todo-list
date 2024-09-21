@@ -54,6 +54,12 @@ const displayController = (function() {
         })
     
         todoArticle.append(todoInfo, deleteBtn);
+
+        todoArticle.addEventListener('click', () => {
+          editTodoDialog(projectName, todo);
+          dialog.showModal();
+        })
+
         return todoArticle;
       }
       
@@ -151,8 +157,8 @@ const displayController = (function() {
     });
   }
     
-  const newTodoDialog = (currentProject) => {
-    const [dialogSubmit, nameInput] = generateDialogForm("New To-Do", "To-do name");
+  const generateTodoForm = (currentProject, headerText) => {
+    const [dialogSubmit, nameInput] = generateDialogForm(headerText, "To-do name");
 
     const projectSelectLabel = document.createElement('label');
     projectSelectLabel.textContent = "Project";
@@ -197,8 +203,42 @@ const displayController = (function() {
 
     nameInput.after(projectSelectLabel, projectSelect, dateInputLabel, dateInput, prioritySelectLabel, prioritySelect, descInputLabel, descInput);
 
-    dialogSubmit.addEventListener("click", (e) => {
-      submitForm(e, () => { createTodo(projectSelect.value, nameInput.value, descInput.value, dateInput.value, prioritySelect.value) })
+    return { nameInput, projectSelect, dateInput, prioritySelect, descInput, dialogSubmit }; 
+  }
+
+  const newTodoDialog = (projectName) => {
+    const todoForm = generateTodoForm(projectName, "New To-Do");
+
+    todoForm.dialogSubmit.addEventListener("click", (e) => {
+      submitForm(e, () => { 
+        createTodo(
+          todoForm.projectSelect.value,
+          todoForm.nameInput.value,
+          todoForm.descInput.value,
+          todoForm.dateInput.value,
+          todoForm.prioritySelect.value)
+      })
+    });
+  }
+
+  const editTodoDialog = (projectName, todo) => {
+    const todoForm = generateTodoForm(projectName, "Edit To-Do");
+
+    todoForm.nameInput.value = todo.name;
+    todoForm.dateInput.value = todo.dueDate;
+    todoForm.prioritySelect.value = todo.priority;
+    todoForm.descInput.value = todo.desc;
+    
+    todoForm.dialogSubmit.addEventListener("click", (e) => {
+      deleteTodo(projectName, todo);
+      submitForm(e, () => { 
+        createTodo(
+          todoForm.projectSelect.value,
+          todoForm.nameInput.value,
+          todoForm.descInput.value,
+          todoForm.dateInput.value,
+          todoForm.prioritySelect.value)
+      })
     });
   }
 
@@ -219,8 +259,8 @@ const displayController = (function() {
 
   // test data
   createProject("project 2");
-  createTodo("default", "task 1", "description", "09/08/24", "priority");
-  createTodo("default", "task 2", "description", "09/08/24", "priority");
+  createTodo("default", "task 1", "description", "2024-09-08", "low");
+  createTodo("default", "task 2", "description", "2024-09-08", "medium");
 
   updateDisplay();
 })();
