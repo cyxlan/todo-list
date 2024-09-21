@@ -169,6 +169,14 @@ const displayController = (function() {
       projectSelect.append(option);
     }
 
+    const dateInputLabel = document.createElement('label');
+    dateInputLabel.textContent = "Due date";
+    dateInputLabel.setAttribute("for", "date-input");
+
+    const dateInput = document.createElement('input');
+    dateInput.setAttribute("type", "date");
+    dateInput.id = "date-input";
+
     const prioritySelectLabel = document.createElement('label');
     prioritySelectLabel.textContent = "Priority";
     prioritySelectLabel.setAttribute("for", "priority-select");
@@ -187,10 +195,10 @@ const displayController = (function() {
     const descInput = document.createElement('textarea');
     descInput.id = "desc-input";
 
-    nameInput.after(projectSelectLabel, projectSelect, prioritySelectLabel, prioritySelect, descInputLabel, descInput);
+    nameInput.after(projectSelectLabel, projectSelect, dateInputLabel, dateInput, prioritySelectLabel, prioritySelect, descInputLabel, descInput);
 
     dialogSubmit.addEventListener("click", (e) => {
-      submitForm(e, () => { createTodo(projectSelect.value, nameInput.value, descInput.value, "", prioritySelect.value) })
+      submitForm(e, () => { createTodo(projectSelect.value, nameInput.value, descInput.value, dateInput.value, prioritySelect.value) })
     });
   }
 
