@@ -1,11 +1,7 @@
 const projects = [];
 
 const getProject = (name) => {
-  for (const project of projects) {
-    if (project.name === name) {
-      return project;
-    }
-  }
+  return projects.find((x) => x.name === name);
 }
 
 class DuplicateNameError extends Error {
