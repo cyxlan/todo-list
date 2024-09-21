@@ -32,11 +32,7 @@ const deleteProject = (name) => {
 }
 
 const getProjectNames = () => {
-  const projectNames = []
-  for (const project of projects) {
-    projectNames.push(project.name);
-  }
-  return projectNames;
+  return projects.map((x) => x.name);;
 };
 
 const getProjectTodos = (projectName) => {
