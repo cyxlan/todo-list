@@ -2,6 +2,7 @@ import { DuplicateNameError, createProject, renameProject, deleteProject, getPro
 import { createTodo, toggleTodoComplete, deleteTodo } from "./todo";
 
 import "../css/index.css";
+import 'iconify-icon';
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
@@ -120,7 +121,12 @@ const displayController = (function() {
     const newProjectBtn = document.createElement("button");
     newProjectBtn.setAttribute("type", "button");
     newProjectBtn.id = "new-project-btn";
-    newProjectBtn.textContent = "New Project";
+    const plusIcon = document.createElement("iconify-icon");
+    plusIcon.setAttribute('icon', 'mdi:plus');
+    plusIcon.setAttribute('aria-hidden', 'true');
+    const span = document.createElement('span');
+    span.textContent = "New Project";
+    newProjectBtn.append(plusIcon, span);
 
     newProjectBtn.addEventListener("click", () => {
       newProjectDialog();

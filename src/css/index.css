@@ -43,6 +43,14 @@ h1 {
   font-size: 1.3rem;
   font-weight: 600;
   text-align: left;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  /* plus icon */
+  iconify-icon {
+    color: rgb(104, 104, 104);
+    font-size: 30px;
+  }
 }
 
 .todo {
