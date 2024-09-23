@@ -66,9 +66,25 @@ h1 {
     margin-top: 10px;
   }
 
-  /* correct checkbox position */
-  .pretty .state label:after,
+  /* checkbox */
   .pretty .state label:before {
+    border-color: rgb(104, 104, 104);
+  }
+  .pretty .state label:before,
+  .pretty .state label:after {
+    border-width: 2px;
+  }
+  .pretty input:checked~.state .svg {
+    color: #fff;
+  }
+  .pretty input:checked~.state label:after,
+  .pretty.p-toggle .state label:after {
+    background-color: rgb(104, 104, 104);
+  }
+  /* correct checkbox position */
+  .pretty .state label:before,
+  .pretty .state label:after,
+  .pretty.p-svg .state .svg {
     top: 20px;
   }
 

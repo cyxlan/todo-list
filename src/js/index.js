@@ -16,7 +16,7 @@ const displayController = (function() {
         todoArticle.classList.add("todo");
 
         const checkboxWrap = document.createElement('div');
-        checkboxWrap.classList.add('pretty', 'p-default', 'p-round');
+        checkboxWrap.classList.add('pretty', 'p-svg', 'p-round', 'p-fill');
 
         const checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
@@ -29,13 +29,18 @@ const displayController = (function() {
         const checkboxState = document.createElement('div');
         checkboxState.classList.add('state');
 
+        const checkIcon = document.createElement("iconify-icon");
+        checkIcon.setAttribute('icon', 'mdi:check');
+        checkIcon.setAttribute('aria-hidden', 'true');
+        checkIcon.classList.add('svg');
+
         const checkboxLabel = document.createElement('label');
         const checkboxLabelSpan = document.createElement('span');
         checkboxLabelSpan.textContent = "Complete to-do";
         checkboxLabelSpan.classList.add('sr-only');
         checkboxLabel.append(checkboxLabelSpan);
 
-        checkboxState.append(checkboxLabel);
+        checkboxState.append(checkIcon, checkboxLabel);
         checkboxWrap.append(checkbox, checkboxState);
         todoArticle.append(checkboxWrap);
     
