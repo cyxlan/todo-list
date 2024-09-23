@@ -286,7 +286,7 @@ const displayController = (function() {
   // test data
   createProject("project 2");
   createTodo("default", "task 1", "", "2024-09-08", "Low");
-  createTodo("default", "task 2", "description", "2024-09-08", "Medium");
+  createTodo("default", "task 2", "Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse posuere sociosqu eget lobortis feugiat odio nam nam. Sed ex velit ante nec fames dolor.", "2024-09-08", "Medium");
   createTodo("default", "task 3", "", "2024-09-08", "High");
 
   updateDisplay();
