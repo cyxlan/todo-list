@@ -38,6 +38,7 @@ const displayController = (function() {
         const priority = document.createElement("p");
         priority.textContent = todo.priority;
         priority.classList.add("todo-priority");
+        priority.classList.add(`priority-${todo.priority}`);
 
         const desc = document.createElement("p");
         desc.textContent = todo.desc;
@@ -221,7 +222,7 @@ const displayController = (function() {
     const prioritySelect = document.createElement('select');
     prioritySelect.id = "priority-select";
     for (const priority of ["Low", "Medium", "High"]) {
-      const option = new Option(priority, priority.toLowerCase());
+      const option = new Option(priority, priority);
       prioritySelect.append(option);
     }
 
@@ -284,8 +285,9 @@ const displayController = (function() {
 
   // test data
   createProject("project 2");
-  createTodo("default", "task 1", "", "2024-09-08", "low");
-  createTodo("default", "task 2", "description", "2024-09-08", "medium");
+  createTodo("default", "task 1", "", "2024-09-08", "Low");
+  createTodo("default", "task 2", "description", "2024-09-08", "Medium");
+  createTodo("default", "task 3", "", "2024-09-08", "High");
 
   updateDisplay();
 })();
