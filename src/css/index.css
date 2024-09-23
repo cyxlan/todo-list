@@ -56,17 +56,17 @@ h1 {
 .todo {
   position: relative;
   background-color: rgb(255, 255, 255);
-  padding: 10px;
+  padding: 10px 15px;
   display: grid;
   grid-template-columns: 20px auto;
   gap: 15px;
-  align-items: center;
 
   + .todo {
     margin-top: 10px;
   }
 
   input[type="checkbox"] {
+    margin-top: 20px;
     height: 20px;
     width: 20px;
   }
