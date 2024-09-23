@@ -79,11 +79,17 @@ h1 {
     .todo-dueDate,
     .todo-priority {
       display: inline-block;
-      font-size: 0.85rem;
       line-height: 1;
     }
-    .todo-dueDate:not(:empty) {
-      margin-right: 15px;
+    .todo-dueDate {
+      font-size: 0.85rem;
+      &:not(:empty) {
+        margin-right: 15px;
+      }
+    }
+    .todo-priority,
+    .todo-desc {
+      font-size: 0.8rem;
     }
     .todo-priority {
       border: 2px solid;
@@ -98,9 +104,6 @@ h1 {
       &.priority-High {
         border-color: rgb(232, 86, 86);
       }
-    }
-    .todo-desc {
-      font-size: 0.8rem;
     }
   }
 }
