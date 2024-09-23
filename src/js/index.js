@@ -30,10 +30,6 @@ const displayController = (function() {
         name.textContent = todo.name;
         name.classList.add("todo-name");
     
-        const desc = document.createElement("p");
-        desc.textContent = todo.desc;
-        desc.classList.add("todo-desc");
-    
         const dueDate = document.createElement("p");
         dueDate.textContent = todo.dueDate;
         dueDate.classList.add("todo-dueDate");
@@ -41,8 +37,12 @@ const displayController = (function() {
         const priority = document.createElement("p");
         priority.textContent = todo.priority;
         priority.classList.add("todo-priority");
+
+        const desc = document.createElement("p");
+        desc.textContent = todo.desc;
+        desc.classList.add("todo-desc");
     
-        todoInfo.append(name, desc, dueDate, priority);
+        todoInfo.append(name, dueDate, priority, desc);
     
         const deleteBtn = document.createElement("button");
         deleteBtn.setAttribute("type", "button");
@@ -277,7 +277,7 @@ const displayController = (function() {
 
   // test data
   createProject("project 2");
-  createTodo("default", "task 1", "description", "2024-09-08", "low");
+  createTodo("default", "task 1", "", "2024-09-08", "low");
   createTodo("default", "task 2", "description", "2024-09-08", "medium");
 
   updateDisplay();
