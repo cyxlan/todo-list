@@ -3,6 +3,7 @@ import { createTodo, toggleTodoComplete, deleteTodo } from "./todo";
 
 import "../css/index.css";
 import 'iconify-icon';
+import 'pretty-checkbox';
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
@@ -13,7 +14,10 @@ const displayController = (function() {
       const createTodoArticle = (projectName, todo) => {
         const todoArticle = document.createElement("article");
         todoArticle.classList.add("todo");
-    
+
+        const checkboxWrap = document.createElement('div');
+        checkboxWrap.classList.add('pretty', 'p-default', 'p-round');
+
         const checkbox = document.createElement("input");
         checkbox.setAttribute("type", "checkbox");
         if (todo.complete) {
@@ -22,7 +26,13 @@ const displayController = (function() {
         checkbox.addEventListener("change", () => {
           toggleTodoComplete(todo);
         })
-        todoArticle.append(checkbox);
+        const checkboxState = document.createElement('div');
+        checkboxState.classList.add('state');
+        const checkboxLabel = document.createElement('label');
+        checkboxState.append(checkboxLabel);
+
+        checkboxWrap.append(checkbox, checkboxState);
+        todoArticle.append(checkboxWrap);
     
         const todoInfo = document.createElement("div");
         todoInfo.classList.add("todo-info");
@@ -57,10 +67,10 @@ const displayController = (function() {
     
         todoArticle.append(todoInfo, deleteBtn);
 
-        todoArticle.addEventListener('click', () => {
-          todoDialog(projectName, todo);
-          dialog.showModal();
-        })
+        // todoArticle.addEventListener('click', () => {
+        //   todoDialog(projectName, todo);
+        //   dialog.showModal();
+        // })
 
         return todoArticle;
       }

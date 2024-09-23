@@ -37,6 +37,7 @@ h1 {
 #new-project-btn {
   background-color: rgb(217, 217, 217);
   padding: 15px;
+  width: 350px;
   min-width: 350px;
 }
 #new-project-btn {
@@ -65,10 +66,10 @@ h1 {
     margin-top: 10px;
   }
 
-  input[type="checkbox"] {
-    margin-top: 20px;
-    height: 20px;
-    width: 20px;
+  /* correct checkbox position */
+  .pretty .state label:after,
+  .pretty .state label:before {
+    top: 20px;
   }
 
   .todo-info {
