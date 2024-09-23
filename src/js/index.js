@@ -28,9 +28,14 @@ const displayController = (function() {
         })
         const checkboxState = document.createElement('div');
         checkboxState.classList.add('state');
-        const checkboxLabel = document.createElement('label');
-        checkboxState.append(checkboxLabel);
 
+        const checkboxLabel = document.createElement('label');
+        const checkboxLabelSpan = document.createElement('span');
+        checkboxLabelSpan.textContent = "Complete to-do";
+        checkboxLabelSpan.classList.add('sr-only');
+        checkboxLabel.append(checkboxLabelSpan);
+
+        checkboxState.append(checkboxLabel);
         checkboxWrap.append(checkbox, checkboxState);
         todoArticle.append(checkboxWrap);
     
