@@ -119,7 +119,8 @@ const displayController = (function() {
 
     const newProjectBtn = document.createElement("button");
     newProjectBtn.setAttribute("type", "button");
-    newProjectBtn.textContent = "New project";
+    newProjectBtn.id = "new-project-btn";
+    newProjectBtn.textContent = "New Project";
 
     newProjectBtn.addEventListener("click", () => {
       newProjectDialog();
