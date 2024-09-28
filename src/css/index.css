@@ -129,10 +129,16 @@ h1 {
   }
 }
 
-.project .delete-btn,
+.project .menu-btn,
 .todo .delete-btn {
   min-width: fit-content;
   position: absolute;
   top: 0;
   right: 5px;
+}
+
+.menu-popup {
+  font-size: 0.8rem;
+  display: grid;
+  justify-items: start;
 }

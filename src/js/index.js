@@ -4,6 +4,8 @@ import { createTodo, toggleTodoComplete, deleteTodo } from "./todo";
 import "../css/index.css";
 import 'iconify-icon';
 import 'pretty-checkbox';
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
@@ -97,15 +99,15 @@ const displayController = (function() {
         dialog.showModal();
       })
 
-      const deleteBtn = document.createElement("button");
-        deleteBtn.setAttribute("type", "button");
-        deleteBtn.classList.add("delete-btn");
-        deleteBtn.textContent = "X";
-        deleteBtn.addEventListener("click", () => {
-          deleteProject(projectName);
-          updateDisplay();
-        })
-      projectDiv.append(deleteBtn);
+      const menuBtn = document.createElement("button");
+      menuBtn.setAttribute("type", "button");
+      menuBtn.classList.add("menu-btn");
+      menuBtn.textContent = "X";
+      // deleteBtn.addEventListener("click", () => {
+      //   deleteProject(projectName);
+      //   updateDisplay();
+      // })
+      projectDiv.append(menuBtn);
   
       const todos = getProjectTodos(projectName);
       if (todos.length === 0) {
@@ -138,6 +140,18 @@ const displayController = (function() {
     for (const projectName of getProjectNames()) {
       contentDiv.append(createProjectDiv(projectName));
     }
+    tippy(document.querySelectorAll('.project .menu-btn'), {
+      content: `
+        <div class="menu-popup">
+          <button class="rename-btn">Rename</button>
+          <button class="delete-btn">Delete</button>
+        </div>`,
+      trigger: 'click',
+      arrow: false,
+      placement: 'right-start',
+      allowHTML: true,
+      interactive: true,
+    });
 
     const newProjectBtn = document.createElement("button");
     newProjectBtn.setAttribute("type", "button");
