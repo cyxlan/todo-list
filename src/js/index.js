@@ -12,6 +12,13 @@ const displayController = (function() {
   const dialog = document.querySelector('#dialog');
 
   const updateDisplay = () => {
+    const createIcon = (iconName) => {
+      const icon = document.createElement("iconify-icon");
+      icon.setAttribute('icon', `mdi:${iconName}`);
+      icon.setAttribute('aria-hidden', 'true');
+      return icon;
+    }
+
     const createProjectDiv = (projectName) => {
       const createTodoArticle = (projectName, todo) => {
         const todoArticle = document.createElement("article");
@@ -31,9 +38,7 @@ const displayController = (function() {
         const checkboxState = document.createElement('div');
         checkboxState.classList.add('state');
 
-        const checkIcon = document.createElement("iconify-icon");
-        checkIcon.setAttribute('icon', 'mdi:check');
-        checkIcon.setAttribute('aria-hidden', 'true');
+        const checkIcon = createIcon('check');
         checkIcon.classList.add('svg');
 
         const checkboxLabel = document.createElement('label');
@@ -99,14 +104,20 @@ const displayController = (function() {
         dialog.showModal();
       })
 
-      const menuBtn = document.createElement("button");
-      menuBtn.setAttribute("type", "button");
-      menuBtn.classList.add("menu-btn");
-      menuBtn.textContent = "X";
       // deleteBtn.addEventListener("click", () => {
       //   deleteProject(projectName);
       //   updateDisplay();
       // })
+
+      const menuBtn = document.createElement("button");
+      menuBtn.setAttribute("type", "button");
+      menuBtn.classList.add("menu-btn");
+      const menuIcon = createIcon('dots-vertical');
+      const span = document.createElement('span');
+      span.textContent = "Project options";
+      span.classList.add('sr-only');
+      menuBtn.append(menuIcon, span);
+
       projectDiv.append(menuBtn);
   
       const todos = getProjectTodos(projectName);
@@ -156,9 +167,7 @@ const displayController = (function() {
     const newProjectBtn = document.createElement("button");
     newProjectBtn.setAttribute("type", "button");
     newProjectBtn.id = "new-project-btn";
-    const plusIcon = document.createElement("iconify-icon");
-    plusIcon.setAttribute('icon', 'mdi:plus');
-    plusIcon.setAttribute('aria-hidden', 'true');
+    const plusIcon = createIcon('plus');
     const span = document.createElement('span');
     span.textContent = "New Project";
     newProjectBtn.append(plusIcon, span);

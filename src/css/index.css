@@ -129,7 +129,13 @@ h1 {
   }
 }
 
-.project .menu-btn,
+.project .menu-btn {
+  font-size: 1.5rem;
+  color: rgb(104, 104, 104);
+  position: absolute;
+  top: 15px;
+  right: 5px;
+}
 .todo .delete-btn {
   min-width: fit-content;
   position: absolute;
