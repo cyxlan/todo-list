@@ -99,16 +99,6 @@ const displayController = (function() {
       projectHeader.textContent = projectName;
       projectDiv.append(projectHeader);
 
-      projectHeader.addEventListener('click', () => {
-        renameProjectDialog(projectName);
-        dialog.showModal();
-      })
-
-      // deleteBtn.addEventListener("click", () => {
-      //   deleteProject(projectName);
-      //   updateDisplay();
-      // })
-
       const menuDiv = document.createElement("div");
       const menuBtn = document.createElement("button");
       menuBtn.setAttribute("type", "button");
@@ -119,6 +109,47 @@ const displayController = (function() {
       span.classList.add('sr-only');
       menuBtn.append(menuIcon, span);
       menuDiv.append(menuBtn)
+
+      const projectMenuRename = () => {
+        renameProjectDialog(projectName);
+        dialog.showModal();
+      }
+      const projectMenuDelete = () => {
+        deleteProject(projectName);
+        updateDisplay();
+      }
+
+      tippy(menuBtn, {
+        content: `
+          <div class="menu-popup">
+            <button class="rename-btn">Rename</button>
+            <button class="delete-btn">Delete</button>
+          </div>`,
+        trigger: 'click',
+        arrow: false,
+        placement: 'right',
+        allowHTML: true,
+        interactive: true,
+        // align to project container
+        popperOptions: {
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [0, 5],
+              }
+            }
+          ]
+        },
+        onShown() {
+          projectDiv.querySelector('.menu-popup .rename-btn').addEventListener('click', projectMenuRename);
+          projectDiv.querySelector('.menu-popup .delete-btn').addEventListener('click', projectMenuDelete);
+        },
+        onHide() {
+          projectDiv.querySelector('.menu-popup .rename-btn').removeEventListener('click', projectMenuRename);
+          projectDiv.querySelector('.menu-popup .delete-btn').removeEventListener('click', projectMenuDelete);
+        }
+      });
 
       projectDiv.append(menuDiv);
   
@@ -153,29 +184,6 @@ const displayController = (function() {
     for (const projectName of getProjectNames()) {
       contentDiv.append(createProjectDiv(projectName));
     }
-    tippy(document.querySelectorAll('.project .menu-btn'), {
-      content: `
-        <div class="menu-popup">
-          <button class="rename-btn">Rename</button>
-          <button class="delete-btn">Delete</button>
-        </div>`,
-      trigger: 'click',
-      arrow: false,
-      placement: 'right',
-      allowHTML: true,
-      interactive: true,
-      // align to project container
-      popperOptions: {
-        modifiers: [
-          {
-            name: 'offset',
-            options: {
-              offset: [0, 5],
-            }
-          }
-        ]
-      }
-    });
 
     const newProjectBtn = document.createElement("button");
     newProjectBtn.setAttribute("type", "button");
