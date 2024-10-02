@@ -109,6 +109,7 @@ const displayController = (function() {
       //   updateDisplay();
       // })
 
+      const menuDiv = document.createElement("div");
       const menuBtn = document.createElement("button");
       menuBtn.setAttribute("type", "button");
       menuBtn.classList.add("menu-btn");
@@ -117,8 +118,9 @@ const displayController = (function() {
       span.textContent = "Project options";
       span.classList.add('sr-only');
       menuBtn.append(menuIcon, span);
+      menuDiv.append(menuBtn)
 
-      projectDiv.append(menuBtn);
+      projectDiv.append(menuDiv);
   
       const todos = getProjectTodos(projectName);
       if (todos.length === 0) {
