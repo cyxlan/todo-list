@@ -146,5 +146,7 @@ h1 {
 .menu-popup {
   font-size: 0.8rem;
   display: grid;
+  gap: 10px;
   justify-items: start;
+  padding: 5px;
 }

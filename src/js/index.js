@@ -159,9 +159,20 @@ const displayController = (function() {
         </div>`,
       trigger: 'click',
       arrow: false,
-      placement: 'right-start',
+      placement: 'right',
       allowHTML: true,
       interactive: true,
+      // align to project container
+      popperOptions: {
+        modifiers: [
+          {
+            name: 'offset',
+            options: {
+              offset: [0, 5],
+            }
+          }
+        ]
+      }
     });
 
     const newProjectBtn = document.createElement("button");
