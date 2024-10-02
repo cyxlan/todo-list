@@ -35,6 +35,7 @@ const displayController = (function() {
         checkbox.addEventListener("change", () => {
           toggleTodoComplete(todo);
         })
+        checkbox.ariaLabel = 'Complete to-do';
         const checkboxState = document.createElement('div');
         checkboxState.classList.add('state');
 
@@ -42,10 +43,6 @@ const displayController = (function() {
         checkIcon.classList.add('svg');
 
         const checkboxLabel = document.createElement('label');
-        const checkboxLabelSpan = document.createElement('span');
-        checkboxLabelSpan.textContent = "Complete to-do";
-        checkboxLabelSpan.classList.add('sr-only');
-        checkboxLabel.append(checkboxLabelSpan);
 
         checkboxState.append(checkIcon, checkboxLabel);
         checkboxWrap.append(checkbox, checkboxState);
@@ -103,11 +100,9 @@ const displayController = (function() {
       const menuBtn = document.createElement("button");
       menuBtn.setAttribute("type", "button");
       menuBtn.classList.add("menu-btn");
+      menuBtn.ariaLabel = "Project options";
       const menuIcon = createIcon('dots-vertical');
-      const span = document.createElement('span');
-      span.textContent = "Project options";
-      span.classList.add('sr-only');
-      menuBtn.append(menuIcon, span);
+      menuBtn.append(menuIcon);
       menuDiv.append(menuBtn)
 
       const projectMenuRename = () => {
@@ -163,11 +158,14 @@ const displayController = (function() {
           projectDiv.append(createTodoArticle(projectName, todo));
         }
       }
-  
+
       const newTodoBtn = document.createElement("button");
       newTodoBtn.setAttribute("type", "button");
       newTodoBtn.classList.add("new-todo-btn");
-      newTodoBtn.textContent = "New to-do";
+      newTodoBtn.title = "New to-do";
+      newTodoBtn.ariaLabel = "New to-do";
+      const plusIcon = createIcon('plus');
+      newTodoBtn.append(plusIcon);
   
       newTodoBtn.addEventListener("click", () => {
         todoDialog(projectName);
