@@ -24,6 +24,16 @@ const displayController = (function() {
         const todoArticle = document.createElement("article");
         todoArticle.classList.add("todo");
 
+        const menuDiv = document.createElement("div");
+        menuDiv.classList.add("menu-container");
+        const menuBtn = document.createElement("button");
+        menuBtn.setAttribute("type", "button");
+        menuBtn.classList.add("menu-btn");
+        menuBtn.ariaLabel = "To-do options";
+        const menuIcon = createIcon('dots-vertical');
+        menuBtn.append(menuIcon);
+        menuDiv.append(menuBtn)
+
         const checkboxWrap = document.createElement('div');
         checkboxWrap.classList.add('pretty', 'p-svg', 'p-round', 'p-fill');
 
@@ -47,7 +57,6 @@ const displayController = (function() {
 
         checkboxState.append(checkIcon, checkboxLabel);
         checkboxWrap.append(checkbox, checkboxState);
-        todoArticle.append(checkboxWrap);
     
         const todoInfo = document.createElement("div");
         todoInfo.classList.add("todo-info");
@@ -71,16 +80,16 @@ const displayController = (function() {
     
         todoInfo.append(name, dueDate, priority, desc);
     
-        const deleteBtn = document.createElement("button");
-        deleteBtn.setAttribute("type", "button");
-        deleteBtn.classList.add("delete-btn");
-        deleteBtn.textContent = "X";
-        deleteBtn.addEventListener("click", () => {
-          deleteTodo(projectName, todo);
-          updateDisplay();
-        })
+        // const deleteBtn = document.createElement("button");
+        // deleteBtn.setAttribute("type", "button");
+        // deleteBtn.classList.add("delete-btn");
+        // deleteBtn.textContent = "X";
+        // deleteBtn.addEventListener("click", () => {
+        //   deleteTodo(projectName, todo);
+        //   updateDisplay();
+        // })
     
-        todoArticle.append(todoInfo, deleteBtn);
+        todoArticle.append(menuDiv, checkboxWrap, todoInfo);
 
         // todoArticle.addEventListener('click', () => {
         //   todoDialog(projectName, todo);
@@ -98,6 +107,7 @@ const displayController = (function() {
       projectDiv.append(projectHeader);
 
       const menuDiv = document.createElement("div");
+      menuDiv.classList.add("menu-container");
       const menuBtn = document.createElement("button");
       menuBtn.setAttribute("type", "button");
       menuBtn.classList.add("menu-btn");
