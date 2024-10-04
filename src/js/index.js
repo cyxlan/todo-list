@@ -1,4 +1,4 @@
-import { DuplicateNameError, createProject, renameProject, deleteProject, getProjectNames, getProjectTodos } from "./project";
+import { DuplicateNameError, createProject, renameProject, deleteProject, getProjectNames, getProjectTodos, getProjectProgress } from "./project";
 import { createTodo, toggleTodoComplete, deleteTodo } from "./todo";
 
 import "../css/index.css";
@@ -85,10 +85,12 @@ const displayController = (function() {
         checkbox.setAttribute("type", "checkbox");
         if (todo.complete) {
           checkbox.checked = true;
+          todoArticle.classList.add("complete");
         }
         checkbox.addEventListener("change", () => {
           toggleTodoComplete(todo);
           todoArticle.classList.toggle("complete");
+          updateDisplay();
         })
         checkbox.ariaLabel = 'Complete to-do';
         const checkboxState = document.createElement('div');
@@ -190,6 +192,12 @@ const displayController = (function() {
         noTodosNote.classList.add("no-todos");
         projectDiv.append(noTodosNote);
       } else {
+        // add todo progress count
+        const [numCompleteTodos, numTotalTodos] = getProjectProgress(projectName);
+        const projectProgress = document.createElement('span');
+        projectProgress.classList.add('progress');
+        projectProgress.textContent = `(${numCompleteTodos}/${numTotalTodos})`;
+        projectHeader.append(projectProgress);
         for (const todo of todos) {
           projectDiv.append(createTodoArticle(projectName, todo));
         }

@@ -32,11 +32,17 @@ const deleteProject = (name) => {
 }
 
 const getProjectNames = () => {
-  return projects.map((x) => x.name);;
+  return projects.map((x) => x.name);
 };
 
 const getProjectTodos = (projectName) => {
   return getProject(projectName).todos;
+}
+
+// get number of completed todos and total number of todos
+const getProjectProgress = (projectName) => {
+  const todos = getProject(projectName).todos;
+  return [todos.filter((todo) => todo.complete).length, todos.length];
 }
 
 const addTodoToProject = (projectName, todo) => {
@@ -50,5 +56,6 @@ export {
   deleteProject,
   getProjectNames,
   getProjectTodos,
+  getProjectProgress,
   addTodoToProject
 }

@@ -33,6 +33,12 @@ h1 {
   h2 {
     padding-right: 15px; /* compensate for menu icon */
     padding-bottom: 15px;
+    .progress {
+      margin-left: 15px;
+      font-size: 1rem;
+      font-weight: 500;
+      overflow-wrap: normal; /* don't wrap text */
+    }
   }
   .no-todos {
     font-size: 0.85rem;
