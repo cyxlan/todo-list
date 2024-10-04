@@ -151,9 +151,10 @@ const displayController = (function() {
   
       const todos = getProjectTodos(projectName);
       if (todos.length === 0) {
-        const noTasksNote = document.createElement("p");
-        noTasksNote.textContent = "No tasks yet";
-        projectDiv.append(noTasksNote);
+        const noTodosNote = document.createElement("p");
+        noTodosNote.textContent = "No to-dos yet. Add one with the + button.";
+        noTodosNote.classList.add("no-todos");
+        projectDiv.append(noTodosNote);
       } else {
         for (const todo of todos) {
           projectDiv.append(createTodoArticle(projectName, todo));
