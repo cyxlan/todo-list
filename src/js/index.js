@@ -6,6 +6,10 @@ import 'iconify-icon';
 import 'pretty-checkbox';
 import tippy from 'tippy.js';
 import 'tippy.js/dist/tippy.css';
+import 'dayjs';
+import dayjs from "dayjs";
+const relativeTime = require("dayjs/plugin/relativeTime");
+dayjs.extend(relativeTime);
 
 const displayController = (function() {
   const contentDiv = document.querySelector("#content");
@@ -112,7 +116,7 @@ const displayController = (function() {
         name.classList.add("todo-name");
     
         const dueDate = document.createElement("p");
-        dueDate.textContent = todo.dueDate;
+        dueDate.textContent = dayjs(todo.dueDate).fromNow();
         dueDate.classList.add("todo-dueDate");
     
         const priority = document.createElement("p");
@@ -318,7 +322,7 @@ const displayController = (function() {
     dateInputLabel.setAttribute("for", "date-input");
 
     const dateInput = document.createElement('input');
-    dateInput.setAttribute("type", "date");
+    dateInput.setAttribute("type", "datetime-local");
     dateInput.id = "date-input";
 
     const prioritySelectLabel = document.createElement('label');
@@ -391,9 +395,9 @@ const displayController = (function() {
 
   // test data
   createProject("project 2");
-  createTodo("default", "task 1", "", "2024-09-08", "Low");
-  createTodo("default", "task 2", "Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse posuere sociosqu eget lobortis feugiat odio nam nam. Sed ex velit ante nec fames dolor.", "2024-09-08", "Medium");
-  createTodo("default", "task 3", "", "2024-09-08", "High");
+  createTodo("default", "task 1", "", "2024-09-08T00:00", "Low");
+  createTodo("default", "task 2", "Lorem ipsum odor amet, consectetuer adipiscing elit. Habitasse posuere sociosqu eget lobortis feugiat odio nam nam. Sed ex velit ante nec fames dolor.", "2024-09-08T00:00", "Medium");
+  createTodo("default", "task 3", "", "2024-10-04T00:00", "High");
 
   updateDisplay();
 })();
