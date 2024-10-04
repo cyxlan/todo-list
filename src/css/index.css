@@ -31,6 +31,7 @@ h1 {
   padding-bottom: 5px;
 
   h2 {
+    padding-right: 15px; /* compensate for menu icon */
     padding-bottom: 15px;
   }
   .no-todos {
@@ -96,6 +97,8 @@ h1 {
 
   .todo-info {
     h3 {
+      word-break: break-all;
+      padding-right: 10px; /* compensate for menu icon */
       font-weight: 500;
       font-size: 1rem;
     }
