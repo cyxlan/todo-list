@@ -129,6 +129,14 @@ h1 {
       }
     }
   }
+
+  &.complete {
+    opacity: 0.8;
+    color:rgb(104, 104, 104);
+    h3 {
+      text-decoration: line-through;
+    }
+  }
 }
 
 .project .menu-btn {

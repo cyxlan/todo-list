@@ -34,6 +34,7 @@ const displayController = (function() {
         }
         checkbox.addEventListener("change", () => {
           toggleTodoComplete(todo);
+          todoArticle.classList.toggle("complete");
         })
         checkbox.ariaLabel = 'Complete to-do';
         const checkboxState = document.createElement('div');
