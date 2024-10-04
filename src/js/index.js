@@ -11,6 +11,14 @@ const displayController = (function() {
   const contentDiv = document.querySelector("#content");
   const dialog = document.querySelector('#dialog');
 
+  tippy.setDefaultProps({
+    trigger: 'click',
+    arrow: false,
+    placement: 'right',
+    allowHTML: true,
+    interactive: true,
+  });
+
   const updateDisplay = () => {
     const createIcon = (iconName) => {
       const icon = document.createElement("iconify-icon");
@@ -33,6 +41,42 @@ const displayController = (function() {
         const menuIcon = createIcon('dots-vertical');
         menuBtn.append(menuIcon);
         menuDiv.append(menuBtn)
+
+        const todoMenuEdit = () => {
+          todoDialog(projectName, todo);
+          dialog.showModal();
+        }
+        const todoMenuDelete = () => {
+          deleteTodo(projectName, todo);
+          updateDisplay();
+        }
+  
+        tippy(menuBtn, {
+          content: `
+            <div class="menu-popup">
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+            </div>`,
+          // align to todo container
+          popperOptions: {
+            modifiers: [
+              {
+                name: 'offset',
+                options: {
+                  offset: [3, 3],
+                }
+              }
+            ]
+          },
+          onShown() {
+            menuDiv.querySelector('.edit-btn').addEventListener('click', todoMenuEdit);
+            menuDiv.querySelector('.delete-btn').addEventListener('click', todoMenuDelete);
+          },
+          onHide() {
+            menuDiv.querySelector('.edit-btn').removeEventListener('click', todoMenuEdit);
+            menuDiv.querySelector('.delete-btn').removeEventListener('click', todoMenuDelete);
+          }
+        });
 
         const checkboxWrap = document.createElement('div');
         checkboxWrap.classList.add('pretty', 'p-svg', 'p-round', 'p-fill');
@@ -79,22 +123,7 @@ const displayController = (function() {
         desc.classList.add("todo-desc");
     
         todoInfo.append(name, dueDate, priority, desc);
-    
-        // const deleteBtn = document.createElement("button");
-        // deleteBtn.setAttribute("type", "button");
-        // deleteBtn.classList.add("delete-btn");
-        // deleteBtn.textContent = "X";
-        // deleteBtn.addEventListener("click", () => {
-        //   deleteTodo(projectName, todo);
-        //   updateDisplay();
-        // })
-    
         todoArticle.append(menuDiv, checkboxWrap, todoInfo);
-
-        // todoArticle.addEventListener('click', () => {
-        //   todoDialog(projectName, todo);
-        //   dialog.showModal();
-        // })
 
         return todoArticle;
       }
@@ -131,11 +160,6 @@ const displayController = (function() {
             <button class="rename-btn">Rename</button>
             <button class="delete-btn">Delete</button>
           </div>`,
-        trigger: 'click',
-        arrow: false,
-        placement: 'right',
-        allowHTML: true,
-        interactive: true,
         // align to project container
         popperOptions: {
           modifiers: [
@@ -148,12 +172,12 @@ const displayController = (function() {
           ]
         },
         onShown() {
-          projectDiv.querySelector('.menu-popup .rename-btn').addEventListener('click', projectMenuRename);
-          projectDiv.querySelector('.menu-popup .delete-btn').addEventListener('click', projectMenuDelete);
+          menuDiv.querySelector('.rename-btn').addEventListener('click', projectMenuRename);
+          menuDiv.querySelector('.delete-btn').addEventListener('click', projectMenuDelete);
         },
         onHide() {
-          projectDiv.querySelector('.menu-popup .rename-btn').removeEventListener('click', projectMenuRename);
-          projectDiv.querySelector('.menu-popup .delete-btn').removeEventListener('click', projectMenuDelete);
+          menuDiv.querySelector('.rename-btn').removeEventListener('click', projectMenuRename);
+          menuDiv.querySelector('.delete-btn').removeEventListener('click', projectMenuDelete);
         }
       });
 
