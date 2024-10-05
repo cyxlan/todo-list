@@ -10,7 +10,7 @@ import {
 } from './todo';
 import { updateDisplay } from "./display";
 
-const generateDialogForm = (headerText, nameLabelText) => {
+const _generateDialogForm = (headerText, nameLabelText) => {
   const dialogForm = document.querySelector('#dialog-form');
   dialogForm.textContent = '';
 
@@ -52,34 +52,34 @@ const generateDialogForm = (headerText, nameLabelText) => {
 };
 
 const newProjectDialog = () => {
-  const [dialogSubmit, nameInput] = generateDialogForm(
+  const [dialogSubmit, nameInput] = _generateDialogForm(
     'New Project',
     'Project name'
   );
 
   dialogSubmit.addEventListener('click', (e) => {
-    submitForm(e, () => {
+    _submitForm(e, () => {
       createProject(nameInput.value);
     });
   });
 };
 
 const renameProjectDialog = (oldName) => {
-  const [dialogSubmit, nameInput] = generateDialogForm(
+  const [dialogSubmit, nameInput] = _generateDialogForm(
     'Rename Project',
     'Project name'
   );
   nameInput.value = oldName;
 
   dialogSubmit.addEventListener('click', (e) => {
-    submitForm(e, () => {
+    _submitForm(e, () => {
       renameProject(oldName, nameInput.value);
     });
   });
 };
 
-const generateTodoForm = (currentProject, headerText) => {
-  const [dialogSubmit, nameInput] = generateDialogForm(
+const _generateTodoForm = (currentProject, headerText) => {
+  const [dialogSubmit, nameInput] = _generateDialogForm(
     headerText,
     'To-do name'
   );
@@ -150,14 +150,14 @@ const todoDialog = (projectName, todo) => {
   let todoForm;
   // if editing an todo, fill in the fields with the existing values
   if (todo) {
-    todoForm = generateTodoForm(projectName, 'Edit To-Do');
+    todoForm = _generateTodoForm(projectName, 'Edit To-Do');
 
     todoForm.nameInput.value = todo.name;
     todoForm.dateInput.value = todo.dueDate;
     todoForm.prioritySelect.value = todo.priority;
     todoForm.descInput.value = todo.desc;
   } else {
-    todoForm = generateTodoForm(projectName, 'New To-Do');
+    todoForm = _generateTodoForm(projectName, 'New To-Do');
   }
 
   todoForm.dialogSubmit.addEventListener('click', (e) => {
@@ -165,7 +165,7 @@ const todoDialog = (projectName, todo) => {
     if (todo) {
       deleteTodo(projectName, todo);
     }
-    submitForm(e, () => {
+    _submitForm(e, () => {
       createTodo(
         todoForm.projectSelect.value,
         todoForm.nameInput.value,
@@ -177,7 +177,7 @@ const todoDialog = (projectName, todo) => {
   });
 };
 
-const submitForm = (e, createFunction) => {
+const _submitForm = (e, createFunction) => {
   try {
     createFunction();
     updateDisplay();

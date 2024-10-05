@@ -12,7 +12,7 @@ function createTodo(project, name, desc, dueDate, priority) {
   addTodoToProject(project, todo);
 }
 
-function getTodoIndex(project, todo) {
+function _getTodoIndex(project, todo) {
   return getProjectTodos(project).findIndex((x) => x === todo);
 }
 
@@ -21,7 +21,7 @@ function toggleTodoComplete(todo) {
 }
 
 function deleteTodo(project, todo) {
-  getProjectTodos(project).splice(getTodoIndex(project, todo), 1);
+  getProjectTodos(project).splice(_getTodoIndex(project, todo), 1);
 }
 
 export {

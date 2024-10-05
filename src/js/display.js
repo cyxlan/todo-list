@@ -32,14 +32,14 @@ tippy.setDefaultProps({
   interactive: true,
 });
 
-const createIcon = (iconName) => {
+const _createIcon = (iconName) => {
   const icon = document.createElement('iconify-icon');
   icon.setAttribute('icon', `mdi:${iconName}`);
   icon.setAttribute('aria-hidden', 'true');
   return icon;
 };
 
-const createTodoArticle = (projectName, todo) => {
+const _createTodoArticle = (projectName, todo) => {
   const todoArticle = document.createElement('article');
   todoArticle.classList.add('todo');
 
@@ -51,16 +51,16 @@ const createTodoArticle = (projectName, todo) => {
   menuBtn.classList.add('menu-btn');
   menuBtn.ariaLabel = 'To-do options';
 
-  const menuIcon = createIcon('dots-vertical');
+  const menuIcon = _createIcon('dots-vertical');
 
   menuBtn.append(menuIcon);
   menuDiv.append(menuBtn);
 
-  const todoMenuEdit = () => {
+  const _todoMenuEdit = () => {
     todoDialog(projectName, todo);
     dialog.showModal();
   };
-  const todoMenuDelete = () => {
+  const _todoMenuDelete = () => {
     deleteTodo(projectName, todo);
     updateDisplay();
   };
@@ -85,18 +85,18 @@ const createTodoArticle = (projectName, todo) => {
     onShown() {
       menuDiv
         .querySelector('.edit-btn')
-        .addEventListener('click', todoMenuEdit);
+        .addEventListener('click', _todoMenuEdit);
       menuDiv
         .querySelector('.delete-btn')
-        .addEventListener('click', todoMenuDelete);
+        .addEventListener('click', _todoMenuDelete);
     },
     onHide() {
       menuDiv
         .querySelector('.edit-btn')
-        .removeEventListener('click', todoMenuEdit);
+        .removeEventListener('click', _todoMenuEdit);
       menuDiv
         .querySelector('.delete-btn')
-        .removeEventListener('click', todoMenuDelete);
+        .removeEventListener('click', _todoMenuDelete);
     },
   });
 
@@ -119,7 +119,7 @@ const createTodoArticle = (projectName, todo) => {
   const checkboxState = document.createElement('div');
   checkboxState.classList.add('state');
 
-  const checkIcon = createIcon('check');
+  const checkIcon = _createIcon('check');
   checkIcon.classList.add('svg');
 
   const checkboxLabel = document.createElement('label');
@@ -152,7 +152,7 @@ const createTodoArticle = (projectName, todo) => {
   return todoArticle;
 };
 
-const createProjectDiv = (projectName) => {
+const _createProjectDiv = (projectName) => {
   const projectDiv = document.createElement('div');
   projectDiv.classList.add('project');
 
@@ -168,16 +168,16 @@ const createProjectDiv = (projectName) => {
   menuBtn.classList.add('menu-btn');
   menuBtn.ariaLabel = 'Project options';
 
-  const menuIcon = createIcon('dots-vertical');
+  const menuIcon = _createIcon('dots-vertical');
 
   menuBtn.append(menuIcon);
   menuDiv.append(menuBtn);
 
-  const projectMenuRename = () => {
+  const _projectMenuRename = () => {
     renameProjectDialog(projectName);
     dialog.showModal();
   };
-  const projectMenuDelete = () => {
+  const _projectMenuDelete = () => {
     deleteProject(projectName);
     updateDisplay();
   };
@@ -202,18 +202,18 @@ const createProjectDiv = (projectName) => {
     onShown() {
       menuDiv
         .querySelector('.rename-btn')
-        .addEventListener('click', projectMenuRename);
+        .addEventListener('click', _projectMenuRename);
       menuDiv
         .querySelector('.delete-btn')
-        .addEventListener('click', projectMenuDelete);
+        .addEventListener('click', _projectMenuDelete);
     },
     onHide() {
       menuDiv
         .querySelector('.rename-btn')
-        .removeEventListener('click', projectMenuRename);
+        .removeEventListener('click', _projectMenuRename);
       menuDiv
         .querySelector('.delete-btn')
-        .removeEventListener('click', projectMenuDelete);
+        .removeEventListener('click', _projectMenuDelete);
     },
   });
 
@@ -234,7 +234,7 @@ const createProjectDiv = (projectName) => {
     projectHeader.append(projectProgress);
 
     for (const todo of todos) {
-      projectDiv.append(createTodoArticle(projectName, todo));
+      projectDiv.append(_createTodoArticle(projectName, todo));
     }
   }
 
@@ -244,7 +244,7 @@ const createProjectDiv = (projectName) => {
   newTodoBtn.title = 'New to-do';
   newTodoBtn.ariaLabel = 'New to-do';
 
-  const plusIcon = createIcon('plus');
+  const plusIcon = _createIcon('plus');
   newTodoBtn.append(plusIcon);
 
   newTodoBtn.addEventListener('click', () => {
@@ -262,14 +262,14 @@ const updateDisplay = () => {
   contentDiv.textContent = '';
 
   for (const projectName of getProjectNames()) {
-    contentDiv.append(createProjectDiv(projectName));
+    contentDiv.append(_createProjectDiv(projectName));
   }
 
   const newProjectBtn = document.createElement('button');
   newProjectBtn.setAttribute('type', 'button');
   newProjectBtn.id = 'new-project-btn';
 
-  const plusIcon = createIcon('plus');
+  const plusIcon = _createIcon('plus');
 
   const span = document.createElement('span');
   span.textContent = 'New Project';
