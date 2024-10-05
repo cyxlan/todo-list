@@ -10,7 +10,6 @@ import {
 } from './popup';
 import {
   newProjectDialog,
-  renameProjectDialog,
   todoDialog
 } from './dialog';
 
