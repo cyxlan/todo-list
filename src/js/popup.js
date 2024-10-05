@@ -46,7 +46,7 @@ const _generateMenu = (labelName, options) => {
         {
           name: 'offset',
           options: {
-            offset: options.offset,
+            offset: options.popupOffset,
           },
         },
       ],
