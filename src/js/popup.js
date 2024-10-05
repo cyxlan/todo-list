@@ -20,20 +20,59 @@ tippy.setDefaultProps({
   interactive: true,
 });
 
-const createProjectMenu = (projectName) => {
+const _generateMenu = (labelName, options) => {
   const menuDiv = document.createElement('div');
   menuDiv.classList.add('menu-container');
 
   const menuBtn = document.createElement('button');
   menuBtn.setAttribute('type', 'button');
   menuBtn.classList.add('menu-btn');
-  menuBtn.ariaLabel = 'Project options';
+  menuBtn.ariaLabel = `${labelName} options`;
 
   const menuIcon = createIcon('dots-vertical');
 
   menuBtn.append(menuIcon);
   menuDiv.append(menuBtn);
 
+  tippy(menuBtn, {
+    content: `
+      <div class="menu-popup">
+        <button class="${options.btn1.class}">${options.btn1.text}</button>
+        <button class="${options.btn2.class}">${options.btn2.text}</button>
+      </div>`,
+    // align to project/todo container
+    popperOptions: {
+      modifiers: [
+        {
+          name: 'offset',
+          options: {
+            offset: options.offset,
+          },
+        },
+      ],
+    },
+    onShown() {
+      menuDiv
+        .querySelector(`.${options.btn1.class}`)
+        .addEventListener('click', options.btn1.function);
+      menuDiv
+        .querySelector(`.${options.btn2.class}`)
+        .addEventListener('click', options.btn2.function);
+    },
+    onHide() {
+      menuDiv
+        .querySelector(`.${options.btn1.class}`)
+        .removeEventListener('click', options.btn1.function);
+      menuDiv
+        .querySelector(`.${options.btn2.class}`)
+        .removeEventListener('click', options.btn2.function);
+    },
+  });
+
+  return menuDiv;
+}
+
+const createProjectMenu = (projectName) => {
   const _projectMenuRename = () => {
     renameProjectDialog(projectName);
     dialog.showModal();
@@ -43,58 +82,26 @@ const createProjectMenu = (projectName) => {
     updateDisplay();
   };
 
-  tippy(menuBtn, {
-    content: `
-      <div class="menu-popup">
-        <button class="rename-btn">Rename</button>
-        <button class="delete-btn">Delete</button>
-      </div>`,
-    // align to project container
-    popperOptions: {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 5],
-          },
-        },
-      ],
-    },
-    onShown() {
-      menuDiv
-        .querySelector('.rename-btn')
-        .addEventListener('click', _projectMenuRename);
-      menuDiv
-        .querySelector('.delete-btn')
-        .addEventListener('click', _projectMenuDelete);
-    },
-    onHide() {
-      menuDiv
-        .querySelector('.rename-btn')
-        .removeEventListener('click', _projectMenuRename);
-      menuDiv
-        .querySelector('.delete-btn')
-        .removeEventListener('click', _projectMenuDelete);
-    },
-  });
+  const menuDiv = _generateMenu('Project',
+    {
+      'btn1': {
+        'class': 'rename-btn',
+        'text': 'Rename',
+        'function': _projectMenuRename
+      },
+      'btn2': {
+        'class': 'delete-btn',
+        'text': 'Delete',
+        'function': _projectMenuDelete
+      },
+      'popupOffset': [0, 5]
+    }
+  );
 
   return menuDiv;
 };
 
 const createTodoMenu = (projectName, todo) => {
-  const menuDiv = document.createElement('div');
-  menuDiv.classList.add('menu-container');
-
-  const menuBtn = document.createElement('button');
-  menuBtn.setAttribute('type', 'button');
-  menuBtn.classList.add('menu-btn');
-  menuBtn.ariaLabel = 'To-do options';
-
-  const menuIcon = createIcon('dots-vertical');
-
-  menuBtn.append(menuIcon);
-  menuDiv.append(menuBtn);
-
   const _todoMenuEdit = () => {
     todoDialog(projectName, todo);
     dialog.showModal();
@@ -104,40 +111,21 @@ const createTodoMenu = (projectName, todo) => {
     updateDisplay();
   };
 
-  tippy(menuBtn, {
-    content: `
-      <div class="menu-popup">
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </div>`,
-    // align to todo container
-    popperOptions: {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [3, 3],
-          },
-        },
-      ],
-    },
-    onShown() {
-      menuDiv
-        .querySelector('.edit-btn')
-        .addEventListener('click', _todoMenuEdit);
-      menuDiv
-        .querySelector('.delete-btn')
-        .addEventListener('click', _todoMenuDelete);
-    },
-    onHide() {
-      menuDiv
-        .querySelector('.edit-btn')
-        .removeEventListener('click', _todoMenuEdit);
-      menuDiv
-        .querySelector('.delete-btn')
-        .removeEventListener('click', _todoMenuDelete);
-    },
-  });
+  const menuDiv = _generateMenu('To-do',
+    {
+      'btn1': {
+        'class': 'edit-btn',
+        'text': 'Edit',
+        'function': _todoMenuEdit
+      },
+      'btn2': {
+        'class': 'delete-btn',
+        'text': 'Delete',
+        'function': _todoMenuDelete
+      },
+      'popupOffset': [3, 3]
+    }
+  );
 
   return menuDiv;
 };
