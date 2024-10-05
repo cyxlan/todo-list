@@ -1,8 +1,11 @@
-import { addTodoToProject, getProjectTodos } from "./project"
+import {
+  addTodoToProject,
+  getProjectTodos
+} from "./project"
 
-function createTodo(project, name, desc="", dueDate="", priority="") {
+function createTodo(project, name, desc, dueDate, priority) {
   // prevent creating a todo with no name
-  if (name === "") {
+  if (name === '') {
     throw new Error(`To-do name cannot be empty.`);
   }
   const todo = { complete: false, name, desc, dueDate, priority };
