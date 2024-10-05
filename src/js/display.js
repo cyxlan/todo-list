@@ -1,13 +1,13 @@
 import {
-  deleteProject,
   getProjectNames,
   getProjectTodos,
   getProjectProgress
 } from './project';
+import { toggleTodoComplete } from './todo';
 import {
-  toggleTodoComplete,
-  deleteTodo
-} from './todo';
+  createProjectMenu,
+  createTodoMenu
+} from './popup';
 import {
   newProjectDialog,
   renameProjectDialog,
@@ -16,23 +16,13 @@ import {
 
 import 'iconify-icon';
 import 'pretty-checkbox';
-import tippy from 'tippy.js';
-import 'tippy.js/dist/tippy.css';
 import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
 const dialog = document.querySelector('#dialog');
 
-tippy.setDefaultProps({
-  trigger: 'click',
-  arrow: false,
-  placement: 'right',
-  allowHTML: true,
-  interactive: true,
-});
-
-const _createIcon = (iconName) => {
+const createIcon = (iconName) => {
   const icon = document.createElement('iconify-icon');
   icon.setAttribute('icon', `mdi:${iconName}`);
   icon.setAttribute('aria-hidden', 'true');
@@ -43,62 +33,7 @@ const _createTodoArticle = (projectName, todo) => {
   const todoArticle = document.createElement('article');
   todoArticle.classList.add('todo');
 
-  const menuDiv = document.createElement('div');
-  menuDiv.classList.add('menu-container');
-
-  const menuBtn = document.createElement('button');
-  menuBtn.setAttribute('type', 'button');
-  menuBtn.classList.add('menu-btn');
-  menuBtn.ariaLabel = 'To-do options';
-
-  const menuIcon = _createIcon('dots-vertical');
-
-  menuBtn.append(menuIcon);
-  menuDiv.append(menuBtn);
-
-  const _todoMenuEdit = () => {
-    todoDialog(projectName, todo);
-    dialog.showModal();
-  };
-  const _todoMenuDelete = () => {
-    deleteTodo(projectName, todo);
-    updateDisplay();
-  };
-
-  tippy(menuBtn, {
-    content: `
-      <div class="menu-popup">
-        <button class="edit-btn">Edit</button>
-        <button class="delete-btn">Delete</button>
-      </div>`,
-    // align to todo container
-    popperOptions: {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [3, 3],
-          },
-        },
-      ],
-    },
-    onShown() {
-      menuDiv
-        .querySelector('.edit-btn')
-        .addEventListener('click', _todoMenuEdit);
-      menuDiv
-        .querySelector('.delete-btn')
-        .addEventListener('click', _todoMenuDelete);
-    },
-    onHide() {
-      menuDiv
-        .querySelector('.edit-btn')
-        .removeEventListener('click', _todoMenuEdit);
-      menuDiv
-        .querySelector('.delete-btn')
-        .removeEventListener('click', _todoMenuDelete);
-    },
-  });
+  const menuDiv = createTodoMenu(projectName, todo);
 
   const checkboxWrap = document.createElement('div');
   checkboxWrap.classList.add('pretty', 'p-svg', 'p-round', 'p-fill');
@@ -119,7 +54,7 @@ const _createTodoArticle = (projectName, todo) => {
   const checkboxState = document.createElement('div');
   checkboxState.classList.add('state');
 
-  const checkIcon = _createIcon('check');
+  const checkIcon = createIcon('check');
   checkIcon.classList.add('svg');
 
   const checkboxLabel = document.createElement('label');
@@ -160,62 +95,7 @@ const _createProjectDiv = (projectName) => {
   projectHeader.textContent = projectName;
   projectDiv.append(projectHeader);
 
-  const menuDiv = document.createElement('div');
-  menuDiv.classList.add('menu-container');
-
-  const menuBtn = document.createElement('button');
-  menuBtn.setAttribute('type', 'button');
-  menuBtn.classList.add('menu-btn');
-  menuBtn.ariaLabel = 'Project options';
-
-  const menuIcon = _createIcon('dots-vertical');
-
-  menuBtn.append(menuIcon);
-  menuDiv.append(menuBtn);
-
-  const _projectMenuRename = () => {
-    renameProjectDialog(projectName);
-    dialog.showModal();
-  };
-  const _projectMenuDelete = () => {
-    deleteProject(projectName);
-    updateDisplay();
-  };
-
-  tippy(menuBtn, {
-    content: `
-      <div class="menu-popup">
-        <button class="rename-btn">Rename</button>
-        <button class="delete-btn">Delete</button>
-      </div>`,
-    // align to project container
-    popperOptions: {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: [0, 5],
-          },
-        },
-      ],
-    },
-    onShown() {
-      menuDiv
-        .querySelector('.rename-btn')
-        .addEventListener('click', _projectMenuRename);
-      menuDiv
-        .querySelector('.delete-btn')
-        .addEventListener('click', _projectMenuDelete);
-    },
-    onHide() {
-      menuDiv
-        .querySelector('.rename-btn')
-        .removeEventListener('click', _projectMenuRename);
-      menuDiv
-        .querySelector('.delete-btn')
-        .removeEventListener('click', _projectMenuDelete);
-    },
-  });
+  const menuDiv = createProjectMenu(projectName);
 
   projectDiv.append(menuDiv);
 
@@ -244,7 +124,7 @@ const _createProjectDiv = (projectName) => {
   newTodoBtn.title = 'New to-do';
   newTodoBtn.ariaLabel = 'New to-do';
 
-  const plusIcon = _createIcon('plus');
+  const plusIcon = createIcon('plus');
   newTodoBtn.append(plusIcon);
 
   newTodoBtn.addEventListener('click', () => {
@@ -269,7 +149,7 @@ const updateDisplay = () => {
   newProjectBtn.setAttribute('type', 'button');
   newProjectBtn.id = 'new-project-btn';
 
-  const plusIcon = _createIcon('plus');
+  const plusIcon = createIcon('plus');
 
   const span = document.createElement('span');
   span.textContent = 'New Project';
@@ -285,5 +165,6 @@ const updateDisplay = () => {
 };
 
 export {
+  createIcon,
   updateDisplay,
 }

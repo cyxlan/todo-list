@@ -1,8 +1,8 @@
-import { createProject } from "./project";
-import { createTodo } from "./todo";
-import { updateDisplay } from "./display";
+import { createProject } from './project';
+import { createTodo } from './todo';
+import { updateDisplay } from './display';
 
-import "../css/index.css";
+import '../css/index.css';
 
 createProject('Default');
 
