@@ -69,7 +69,9 @@ function _createTodoArticle(projectName, todo) {
   name.classList.add('todo-name');
 
   const dueDate = document.createElement('p');
-  dueDate.textContent = dayjs(todo.dueDate).fromNow();
+  if (todo.dueDate) {
+    dueDate.textContent = dayjs(todo.dueDate).fromNow();
+  }  
   dueDate.classList.add('todo-dueDate');
 
   const priority = document.createElement('p');

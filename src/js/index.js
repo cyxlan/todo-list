@@ -12,7 +12,7 @@ addTodo({
   project: 'Default',
   name: 'Task 1',
   desc: '',
-  dueDate: '2024-09-08T00:00',
+  dueDate: '',
   priority: 'Low'
 });
 addTodo({
