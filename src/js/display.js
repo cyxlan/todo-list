@@ -121,9 +121,9 @@ function _createProjectDiv(projectName) {
 
   const newTodoBtn = document.createElement('button');
   newTodoBtn.setAttribute('type', 'button');
-  newTodoBtn.classList.add('new-todo-btn');
-  newTodoBtn.title = 'New to-do';
-  newTodoBtn.ariaLabel = 'New to-do';
+  newTodoBtn.classList.add('new-project-todo-btn');
+  newTodoBtn.title = 'Add to-do';
+  newTodoBtn.ariaLabel = 'Add to-do to project';
 
   const plusIcon = createIcon('plus');
   newTodoBtn.append(plusIcon);
