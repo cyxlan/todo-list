@@ -19,13 +19,19 @@ import dayjs from 'dayjs';
 import relativeTime from 'dayjs/plugin/relativeTime';
 dayjs.extend(relativeTime);
 
-const dialog = document.querySelector('#dialog');
-
 function createIcon(iconName) {
   const icon = document.createElement('iconify-icon');
   icon.setAttribute('icon', `mdi:${iconName}`);
   icon.setAttribute('aria-hidden', 'true');
   return icon;
+}
+
+function _showDialogOnClick(btn, dialogFunction) {
+  const dialog = document.querySelector('#dialog');
+  btn.addEventListener('click', () => {
+    dialogFunction();
+    dialog.showModal();
+  });
 }
 
 function _createTodoArticle(projectName, todo) {
@@ -128,9 +134,8 @@ function _createProjectDiv(projectName) {
   const plusIcon = createIcon('plus');
   newTodoBtn.append(plusIcon);
 
-  newTodoBtn.addEventListener('click', () => {
+  _showDialogOnClick(newTodoBtn, () => {
     todoDialog(projectName);
-    dialog.showModal();
   });
 
   projectDiv.append(newTodoBtn);
@@ -150,10 +155,7 @@ function _createNewProjectBtn() {
 
   newProjectBtn.append(plusIcon, span);
 
-  newProjectBtn.addEventListener('click', () => {
-    newProjectDialog();
-    dialog.showModal();
-  });
+  _showDialogOnClick(newProjectBtn, newProjectDialog);
 
   return newProjectBtn;
 }
@@ -168,10 +170,7 @@ function _createNewTodoBtn() {
   const plusIcon = createIcon('plus');
   newTodoBtn.append(plusIcon);
 
-  newTodoBtn.addEventListener('click', () => {
-    todoDialog();
-    dialog.showModal();
-  });
+  _showDialogOnClick(newTodoBtn, todoDialog);
 
   return newTodoBtn;
 }
