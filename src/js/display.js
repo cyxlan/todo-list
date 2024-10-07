@@ -138,6 +138,26 @@ function _createProjectDiv(projectName) {
   return projectDiv;
 }
 
+function _createNewProjectBtn() {
+  const newProjectBtn = document.createElement('button');
+  newProjectBtn.setAttribute('type', 'button');
+  newProjectBtn.id = 'new-project-btn';
+
+  const plusIcon = createIcon('plus');
+
+  const span = document.createElement('span');
+  span.textContent = 'New Project';
+
+  newProjectBtn.append(plusIcon, span);
+
+  newProjectBtn.addEventListener('click', () => {
+    newProjectDialog();
+    dialog.showModal();
+  });
+
+  return newProjectBtn;
+}
+
 function _createNewTodoBtn() {
   const newTodoBtn = document.createElement('button');
   newTodoBtn.setAttribute('type', 'button');
@@ -164,25 +184,7 @@ function updateDisplay() {
     contentDiv.append(_createProjectDiv(projectName));
   }
 
-  const newProjectBtn = document.createElement('button');
-  newProjectBtn.setAttribute('type', 'button');
-  newProjectBtn.id = 'new-project-btn';
-
-  const plusIcon = createIcon('plus');
-
-  const span = document.createElement('span');
-  span.textContent = 'New Project';
-
-  newProjectBtn.append(plusIcon, span);
-
-  newProjectBtn.addEventListener('click', () => {
-    newProjectDialog();
-    dialog.showModal();
-  });
-
-  const newTodoBtn = _createNewTodoBtn();
-
-  contentDiv.append(newProjectBtn, newTodoBtn);
+  contentDiv.append(_createNewProjectBtn(), _createNewTodoBtn());
 }
 
 export {
