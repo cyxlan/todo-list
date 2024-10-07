@@ -138,6 +138,24 @@ function _createProjectDiv(projectName) {
   return projectDiv;
 }
 
+function _createNewTodoBtn() {
+  const newTodoBtn = document.createElement('button');
+  newTodoBtn.setAttribute('type', 'button');
+  newTodoBtn.id = 'new-todo-btn';
+  newTodoBtn.title = 'Add to-do';
+  newTodoBtn.ariaLabel = 'Add to-do';
+
+  const plusIcon = createIcon('plus');
+  newTodoBtn.append(plusIcon);
+
+  newTodoBtn.addEventListener('click', () => {
+    todoDialog();
+    dialog.showModal();
+  });
+
+  return newTodoBtn;
+}
+
 function updateDisplay() {
   const contentDiv = document.querySelector('#content');
   contentDiv.textContent = '';
@@ -162,7 +180,9 @@ function updateDisplay() {
     dialog.showModal();
   });
 
-  contentDiv.append(newProjectBtn);
+  const newTodoBtn = _createNewTodoBtn();
+
+  contentDiv.append(newProjectBtn, newTodoBtn);
 }
 
 export {
