@@ -8,9 +8,9 @@ import {
   createTodo,
   deleteTodo
 } from './todo';
-import { updateDisplay } from "./display";
+import { updateDisplay } from './display';
 
-const _generateDialogForm = (headerText, nameLabelText) => {
+function _generateDialogForm(headerText, nameLabelText) {
   const dialogForm = document.querySelector('#dialog-form');
   dialogForm.textContent = '';
 
@@ -49,9 +49,9 @@ const _generateDialogForm = (headerText, nameLabelText) => {
   );
 
   return [dialogSubmit, nameInput];
-};
+}
 
-const newProjectDialog = () => {
+function newProjectDialog() {
   const [dialogSubmit, nameInput] = _generateDialogForm(
     'New Project',
     'Project name'
@@ -62,9 +62,9 @@ const newProjectDialog = () => {
       createProject(nameInput.value);
     });
   });
-};
+}
 
-const renameProjectDialog = (oldName) => {
+function renameProjectDialog(oldName) {
   const [dialogSubmit, nameInput] = _generateDialogForm(
     'Rename Project',
     'Project name'
@@ -76,9 +76,9 @@ const renameProjectDialog = (oldName) => {
       renameProject(oldName, nameInput.value);
     });
   });
-};
+}
 
-const _generateTodoForm = (currentProject, headerText) => {
+function _generateTodoForm(currentProject, headerText) {
   const [dialogSubmit, nameInput] = _generateDialogForm(
     headerText,
     'To-do name'
@@ -144,9 +144,9 @@ const _generateTodoForm = (currentProject, headerText) => {
     descInput,
     dialogSubmit,
   };
-};
+}
 
-const todoDialog = (projectName, todo) => {
+function todoDialog(projectName, todo) {
   let todoForm;
   // if editing an todo, fill in the fields with the existing values
   if (todo) {
@@ -175,9 +175,9 @@ const todoDialog = (projectName, todo) => {
       );
     });
   });
-};
+}
 
-const _submitForm = (e, createFunction) => {
+function _submitForm(e, createFunction) {
   try {
     createFunction();
     updateDisplay();
@@ -190,7 +190,7 @@ const _submitForm = (e, createFunction) => {
       document.querySelector('#name-input').value = '';
     }
   }
-};
+}
 
 export {
   newProjectDialog,

@@ -1,7 +1,7 @@
 import {
   getProjectNames,
   getProjectTodos,
-  getProjectProgress
+  getProjectProgress,
 } from './project';
 import { toggleTodoComplete } from './todo';
 import {
@@ -21,14 +21,14 @@ dayjs.extend(relativeTime);
 
 const dialog = document.querySelector('#dialog');
 
-const createIcon = (iconName) => {
+function createIcon(iconName) {
   const icon = document.createElement('iconify-icon');
   icon.setAttribute('icon', `mdi:${iconName}`);
   icon.setAttribute('aria-hidden', 'true');
   return icon;
-};
+}
 
-const _createTodoArticle = (projectName, todo) => {
+function _createTodoArticle(projectName, todo) {
   const todoArticle = document.createElement('article');
   todoArticle.classList.add('todo');
 
@@ -49,7 +49,7 @@ const _createTodoArticle = (projectName, todo) => {
     todoArticle.classList.toggle('complete');
     updateDisplay();
   });
-  
+
   const checkboxState = document.createElement('div');
   checkboxState.classList.add('state');
 
@@ -84,9 +84,9 @@ const _createTodoArticle = (projectName, todo) => {
   todoArticle.append(menuDiv, checkboxWrap, todoInfo);
 
   return todoArticle;
-};
+}
 
-const _createProjectDiv = (projectName) => {
+function _createProjectDiv(projectName) {
   const projectDiv = document.createElement('div');
   projectDiv.classList.add('project');
 
@@ -134,9 +134,9 @@ const _createProjectDiv = (projectName) => {
   projectDiv.append(newTodoBtn);
 
   return projectDiv;
-};
+}
 
-const updateDisplay = () => {
+function updateDisplay() {
   const contentDiv = document.querySelector('#content');
   contentDiv.textContent = '';
 
@@ -161,9 +161,9 @@ const updateDisplay = () => {
   });
 
   contentDiv.append(newProjectBtn);
-};
+}
 
 export {
   createIcon,
   updateDisplay,
-}
+};

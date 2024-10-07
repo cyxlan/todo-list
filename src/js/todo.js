@@ -1,6 +1,6 @@
 import {
   addTodoToProject,
-  getProjectTodos
+  getProjectTodos,
 } from "./project"
 
 function createTodo(project, name, desc, dueDate, priority) {
@@ -28,4 +28,4 @@ export {
   createTodo,
   toggleTodoComplete,
   deleteTodo,
-}
+};

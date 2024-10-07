@@ -20,7 +20,7 @@ tippy.setDefaultProps({
   interactive: true,
 });
 
-const _generateMenu = (labelName, options) => {
+function _generateMenu(labelName, options) {
   const menuDiv = document.createElement('div');
   menuDiv.classList.add('menu-container');
 
@@ -72,7 +72,7 @@ const _generateMenu = (labelName, options) => {
   return menuDiv;
 }
 
-const createProjectMenu = (projectName) => {
+function createProjectMenu(projectName) {
   const _projectMenuRename = () => {
     renameProjectDialog(projectName);
     dialog.showModal();
@@ -82,26 +82,24 @@ const createProjectMenu = (projectName) => {
     updateDisplay();
   };
 
-  const menuDiv = _generateMenu('Project',
-    {
-      'btn1': {
-        'class': 'rename-btn',
-        'text': 'Rename',
-        'function': _projectMenuRename
-      },
-      'btn2': {
-        'class': 'delete-btn',
-        'text': 'Delete',
-        'function': _projectMenuDelete
-      },
-      'popupOffset': [0, 5]
-    }
-  );
+  const menuDiv = _generateMenu('Project', {
+    btn1: {
+      class: 'rename-btn',
+      text: 'Rename',
+      function: _projectMenuRename,
+    },
+    btn2: {
+      class: 'delete-btn',
+      text: 'Delete',
+      function: _projectMenuDelete,
+    },
+    popupOffset: [0, 5],
+  });
 
   return menuDiv;
-};
+}
 
-const createTodoMenu = (projectName, todo) => {
+function createTodoMenu(projectName, todo) {
   const _todoMenuEdit = () => {
     todoDialog(projectName, todo);
     dialog.showModal();
@@ -111,21 +109,19 @@ const createTodoMenu = (projectName, todo) => {
     updateDisplay();
   };
 
-  const menuDiv = _generateMenu('To-do',
-    {
-      'btn1': {
-        'class': 'edit-btn',
-        'text': 'Edit',
-        'function': _todoMenuEdit
-      },
-      'btn2': {
-        'class': 'delete-btn',
-        'text': 'Delete',
-        'function': _todoMenuDelete
-      },
-      'popupOffset': [3, 3]
-    }
-  );
+  const menuDiv = _generateMenu('To-do', {
+    btn1: {
+      class: 'edit-btn',
+      text: 'Edit',
+      function: _todoMenuEdit,
+    },
+    btn2: {
+      class: 'delete-btn',
+      text: 'Delete',
+      function: _todoMenuDelete,
+    },
+    popupOffset: [3, 3],
+  });
 
   return menuDiv;
 };
@@ -133,4 +129,4 @@ const createTodoMenu = (projectName, todo) => {
 export {
   createProjectMenu,
   createTodoMenu,
-}
+};
