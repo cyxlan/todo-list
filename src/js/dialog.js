@@ -5,8 +5,8 @@ import {
   getProjectNames,
 } from './project';
 import {
-  createTodo,
-  deleteTodo
+  addTodo,
+  editTodo,
 } from './todo';
 import { updateDisplay } from './display';
 
@@ -146,34 +146,38 @@ function _generateTodoForm(currentProject, headerText) {
   };
 }
 
-function todoDialog(projectName, todo) {
+function todoDialog(projectName, oldTodo) {
   let todoForm;
   // if editing an todo, fill in the fields with the existing values
-  if (todo) {
+  if (oldTodo) {
     todoForm = _generateTodoForm(projectName, 'Edit To-Do');
 
-    todoForm.nameInput.value = todo.name;
-    todoForm.dateInput.value = todo.dueDate;
-    todoForm.prioritySelect.value = todo.priority;
-    todoForm.descInput.value = todo.desc;
+    todoForm.nameInput.value = oldTodo.name;
+    todoForm.dateInput.value = oldTodo.dueDate;
+    todoForm.prioritySelect.value = oldTodo.priority;
+    todoForm.descInput.value = oldTodo.desc;
   } else {
     todoForm = _generateTodoForm(projectName, 'New To-Do');
   }
 
   todoForm.dialogSubmit.addEventListener('click', (e) => {
-    // if editing an todo, delete the old todo before creating a new one
-    if (todo) {
-      deleteTodo(projectName, todo);
+    const newTodo = {
+      project: todoForm.projectSelect.value,
+      name: todoForm.nameInput.value,
+      desc: todoForm.descInput.value,
+      dueDate: todoForm.dateInput.value,
+      priority: todoForm.prioritySelect.value
     }
-    _submitForm(e, () => {
-      createTodo(
-        todoForm.projectSelect.value,
-        todoForm.nameInput.value,
-        todoForm.descInput.value,
-        todoForm.dateInput.value,
-        todoForm.prioritySelect.value
-      );
-    });
+
+    if (oldTodo) {
+      _submitForm(e, () => {
+        editTodo(projectName, oldTodo, newTodo);
+      });
+    } else {
+      _submitForm(e, () => {
+        addTodo(newTodo);
+      });
+    }
   });
 }
 
