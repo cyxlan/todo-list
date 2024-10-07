@@ -29,9 +29,7 @@ function _generateMenu(labelName, options) {
   menuBtn.classList.add('menu-btn');
   menuBtn.ariaLabel = `${labelName} options`;
 
-  const menuIcon = createIcon('dots-vertical');
-
-  menuBtn.append(menuIcon);
+  menuBtn.append(createIcon('dots-vertical'));
   menuDiv.append(menuBtn);
 
   tippy(menuBtn, {

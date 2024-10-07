@@ -131,8 +131,7 @@ function _createProjectDiv(projectName) {
   newTodoBtn.title = 'Add to-do';
   newTodoBtn.ariaLabel = 'Add to-do to project';
 
-  const plusIcon = createIcon('plus');
-  newTodoBtn.append(plusIcon);
+  newTodoBtn.append(createIcon('plus'));
 
   _showDialogOnClick(newTodoBtn, () => {
     todoDialog(projectName);
@@ -148,12 +147,10 @@ function _createNewProjectBtn() {
   newProjectBtn.setAttribute('type', 'button');
   newProjectBtn.id = 'new-project-btn';
 
-  const plusIcon = createIcon('plus');
-
   const span = document.createElement('span');
   span.textContent = 'New Project';
 
-  newProjectBtn.append(plusIcon, span);
+  newProjectBtn.append(createIcon('plus'), span);
 
   _showDialogOnClick(newProjectBtn, newProjectDialog);
 
@@ -167,8 +164,7 @@ function _createNewTodoBtn() {
   newTodoBtn.title = 'Add to-do';
   newTodoBtn.ariaLabel = 'Add to-do';
 
-  const plusIcon = createIcon('plus');
-  newTodoBtn.append(plusIcon);
+  newTodoBtn.append(createIcon('plus'));
 
   _showDialogOnClick(newTodoBtn, todoDialog);
 
