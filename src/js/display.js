@@ -7,7 +7,7 @@ import { toggleTodoComplete } from './todo';
 import {
   createProjectMenu,
   createTodoMenu
-} from './popup';
+} from './menu';
 import {
   newProjectDialog,
   todoDialog
