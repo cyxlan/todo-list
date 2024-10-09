@@ -19,12 +19,15 @@ function _generateDialogForm(headerText, nameLabelText) {
 
   const nameInputLabel = document.createElement('label');
   nameInputLabel.setAttribute('for', 'name-input');
-  nameInputLabel.textContent = nameLabelText;
+  nameInputLabel.textContent = `${nameLabelText} name (required)`;
 
   const nameInput = document.createElement('input');
   nameInput.setAttribute('type', 'text');
   nameInput.setAttribute('autofocus', 'autofocus');
   nameInput.id = 'name-input';
+
+  const dialogBtns = document.createElement('div');
+  dialogBtns.classList.add('dialog-btns');
 
   const dialogSubmit = document.createElement('button');
   dialogSubmit.setAttribute('type', 'submit');
@@ -40,12 +43,16 @@ function _generateDialogForm(headerText, nameLabelText) {
     dialog.close();
   });
 
+  dialogBtns.append(
+    dialogSubmit,
+    dialogCancel
+  );
+
   dialogForm.append(
     dialogHeader,
     nameInputLabel,
     nameInput,
-    dialogSubmit,
-    dialogCancel
+    dialogBtns
   );
 
   return [dialogSubmit, nameInput];
@@ -54,7 +61,7 @@ function _generateDialogForm(headerText, nameLabelText) {
 function newProjectDialog() {
   const [dialogSubmit, nameInput] = _generateDialogForm(
     'New Project',
-    'Project name'
+    'Project'
   );
 
   dialogSubmit.addEventListener('click', (e) => {
@@ -67,7 +74,7 @@ function newProjectDialog() {
 function renameProjectDialog(oldName) {
   const [dialogSubmit, nameInput] = _generateDialogForm(
     'Rename Project',
-    'Project name'
+    'Project'
   );
   nameInput.value = oldName;
 
@@ -81,7 +88,7 @@ function renameProjectDialog(oldName) {
 function _generateTodoForm(currentProject, headerText) {
   const [dialogSubmit, nameInput] = _generateDialogForm(
     headerText,
-    'To-do name'
+    'To-do'
   );
 
   const projectSelectLabel = document.createElement('label');
