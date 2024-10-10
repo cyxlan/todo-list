@@ -8,9 +8,6 @@
   min-width: 500px;
   
   form {
-    display: flex;
-    flex-direction: column;
-
     h2 {
       text-align: center;
       font-size: 1.3rem;
@@ -19,6 +16,10 @@
     label {
       font-size: 0.85rem;
       margin-bottom: 5px;
+      display: block;
+    }
+    .form-input {
+      width: 100%;
     }
     input[type="text"] {
       background-color: white;
@@ -26,7 +27,6 @@
       padding: 5px 10px;
     }
     textarea {
-      width: 100%;
       resize: vertical;
     }
 

@@ -10,6 +10,27 @@ import {
 } from './todo';
 import { updateDisplay } from './display';
 
+function _createFormField(labelText, field) {
+  const label = document.createElement('label');
+  label.setAttribute('for', field.id);
+  label.textContent = labelText;
+
+  const input = document.createElement(field.element);
+  if (field.type) {
+    input.setAttribute('type', field.type);
+  }
+  input.id = field.id;
+  input.classList.add('form-input');
+
+  return { label, input }
+}
+
+function _addFormField(formFields, field) {
+  const li = document.createElement('li');
+  li.append(field.label, field.input);
+  formFields.append(li);
+}
+
 function _generateDialogForm(headerText, nameLabelText) {
   const dialogForm = document.querySelector('#dialog-form');
   dialogForm.textContent = '';
@@ -17,139 +38,128 @@ function _generateDialogForm(headerText, nameLabelText) {
   const dialogHeader = document.createElement('h2');
   dialogHeader.textContent = headerText;
 
-  const nameInputLabel = document.createElement('label');
-  nameInputLabel.setAttribute('for', 'name-input');
-  nameInputLabel.textContent = `${nameLabelText} name (required)`;
+  const formFields = document.createElement('ul');
+  formFields.id = 'form-fields';
 
-  const nameInput = document.createElement('input');
-  nameInput.setAttribute('type', 'text');
-  nameInput.setAttribute('autofocus', 'autofocus');
-  nameInput.id = 'name-input';
+  const name = _createFormField(`${nameLabelText} name (required)`, {
+    id: 'name-input',
+    element: 'input',
+    type: 'text',
+  });
+  name.input.setAttribute('autofocus', 'autofocus');
+
+  _addFormField(formFields, name);
 
   const dialogBtns = document.createElement('div');
   dialogBtns.classList.add('dialog-btns');
 
-  const dialogSubmit = document.createElement('button');
-  dialogSubmit.setAttribute('type', 'submit');
-  dialogSubmit.id = 'submit-btn';
-  dialogSubmit.textContent = 'Submit';
+  const submitBtn = document.createElement('button');
+  submitBtn.setAttribute('type', 'submit');
+  submitBtn.id = 'submit-btn';
+  submitBtn.textContent = 'Submit';
 
-  const dialogCancel = document.createElement('button');
-  dialogCancel.setAttribute('type', 'button');
-  dialogCancel.id = 'cancel-btn';
-  dialogCancel.textContent = 'Cancel';
+  const cancelBtn = document.createElement('button');
+  cancelBtn.setAttribute('type', 'button');
+  cancelBtn.id = 'cancel-btn';
+  cancelBtn.textContent = 'Cancel';
 
-  dialogCancel.addEventListener('click', () => {
+  cancelBtn.addEventListener('click', () => {
     dialog.close();
   });
 
-  dialogBtns.append(
-    dialogSubmit,
-    dialogCancel
-  );
+  dialogBtns.append(submitBtn, cancelBtn);
 
   dialogForm.append(
     dialogHeader,
-    nameInputLabel,
-    nameInput,
+    formFields,
     dialogBtns
   );
 
-  return [dialogSubmit, nameInput];
+  return {
+    submitBtn,
+    formFields,
+    nameInput: name.input
+  };
 }
 
 function newProjectDialog() {
-  const [dialogSubmit, nameInput] = _generateDialogForm(
+  const dialogForm = _generateDialogForm(
     'New Project',
     'Project'
   );
 
-  dialogSubmit.addEventListener('click', (e) => {
+  dialogForm.submitBtn.addEventListener('click', (e) => {
     _submitForm(e, () => {
-      createProject(nameInput.value);
+      createProject(dialogForm.nameInput.value);
     });
   });
 }
 
 function renameProjectDialog(oldName) {
-  const [dialogSubmit, nameInput] = _generateDialogForm(
+  const dialogForm = _generateDialogForm(
     'Rename Project',
     'Project'
   );
   nameInput.value = oldName;
 
-  dialogSubmit.addEventListener('click', (e) => {
+  dialogForm.submitBtn.addEventListener('click', (e) => {
     _submitForm(e, () => {
-      renameProject(oldName, nameInput.value);
+      renameProject(oldName, dialogForm.nameInput.value);
     });
   });
 }
 
 function _generateTodoForm(currentProject, headerText) {
-  const [dialogSubmit, nameInput] = _generateDialogForm(
+  const dialogForm = _generateDialogForm(
     headerText,
     'To-do'
   );
 
-  const projectSelectLabel = document.createElement('label');
-  projectSelectLabel.textContent = 'Project';
-  projectSelectLabel.setAttribute('for', 'project-select');
+  const fields = {
+    projectSelect: _createFormField('Project', {
+      id: 'project-select',
+      element: 'select',
+    }),
+    dateInput: _createFormField('Due date', {
+      id: 'date-input',
+      element: 'input',
+      type: 'datetime-local',
+    }),
+    prioritySelect: _createFormField('Priority', {
+      id: 'priority-select',
+      element: 'select',
+    }),
+    descInput: _createFormField('Description', {
+      id: 'desc-input',
+      element: 'textarea',
+    }),
+  };
 
-  const projectSelect = document.createElement('select');
-  projectSelect.id = 'project-select';
   for (const projectName of getProjectNames()) {
     const option = new Option(projectName, projectName);
     // if this dialog was triggered from a project/todo, set the corresponding project to be selected by default
     if (projectName === currentProject) {
       option.setAttribute('selected', 'true');
     }
-    projectSelect.append(option);
+    fields.projectSelect.input.append(option);
   }
 
-  const dateInputLabel = document.createElement('label');
-  dateInputLabel.textContent = 'Due date';
-  dateInputLabel.setAttribute('for', 'date-input');
-
-  const dateInput = document.createElement('input');
-  dateInput.setAttribute('type', 'datetime-local');
-  dateInput.id = 'date-input';
-
-  const prioritySelectLabel = document.createElement('label');
-  prioritySelectLabel.textContent = 'Priority';
-  prioritySelectLabel.setAttribute('for', 'priority-select');
-
-  const prioritySelect = document.createElement('select');
-  prioritySelect.id = 'priority-select';
   for (const priority of ['Low', 'Medium', 'High']) {
     const option = new Option(priority, priority);
-    prioritySelect.append(option);
+    fields.prioritySelect.input.append(option);
   }
 
-  const descInputLabel = document.createElement('label');
-  descInputLabel.textContent = 'Description';
-  descInputLabel.setAttribute('for', 'desc-input');
-
-  const descInput = document.createElement('textarea');
-  descInput.id = 'desc-input';
-
-  nameInput.after(
-    projectSelectLabel,
-    projectSelect,
-    dateInputLabel,
-    dateInput,
-    prioritySelectLabel,
-    prioritySelect,
-    descInputLabel,
-    descInput
-  );
+  for (const field in fields) {
+    _addFormField(dialogForm.formFields, fields[field]);
+  }
 
   return {
-    nameInput,
-    projectSelect,
-    dateInput,
-    prioritySelect,
-    descInput,
-    dialogSubmit,
+    nameInput: dialogForm.nameInput,
+    projectSelect: fields.prioritySelect.input,
+    dateInput: fields.dateInput.input,
+    prioritySelect: fields.prioritySelect.input,
+    descInput: fields.descInput.input,
+    submitBtn: dialogForm.submitBtn,
   };
 }
 
@@ -167,7 +177,7 @@ function todoDialog(projectName, oldTodo) {
     todoForm = _generateTodoForm(projectName, 'New To-Do');
   }
 
-  todoForm.dialogSubmit.addEventListener('click', (e) => {
+  todoForm.submitBtn.addEventListener('click', (e) => {
     const newTodo = {
       project: todoForm.projectSelect.value,
       name: todoForm.nameInput.value,
