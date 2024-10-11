@@ -155,7 +155,7 @@ function _generateTodoForm(currentProject, headerText) {
 
   return {
     nameInput: dialogForm.nameInput,
-    projectSelect: fields.prioritySelect.input,
+    projectSelect: fields.projectSelect.input,
     dateInput: fields.dateInput.input,
     prioritySelect: fields.prioritySelect.input,
     descInput: fields.descInput.input,
