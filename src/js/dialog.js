@@ -120,14 +120,14 @@ function _generateTodoForm(currentProject, headerText) {
       id: 'project-select',
       element: 'select',
     }),
+    prioritySelect: _createFormField('Priority', {
+      id: 'priority-select',
+      element: 'select',
+    }),
     dateInput: _createFormField('Due date', {
       id: 'date-input',
       element: 'input',
       type: 'datetime-local',
-    }),
-    prioritySelect: _createFormField('Priority', {
-      id: 'priority-select',
-      element: 'select',
     }),
     descInput: _createFormField('Description', {
       id: 'desc-input',

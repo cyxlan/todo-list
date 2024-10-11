@@ -6,6 +6,12 @@
   background-color: rgb(217, 217, 217);
   padding: 20px 25px;
   min-width: 500px;
+
+  #form-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
   
   form {
     h2 {
@@ -21,13 +27,32 @@
     .form-input {
       width: 100%;
     }
-    input[type="text"] {
+    input,
+    select,
+    textarea {
       background-color: white;
-      height: 45px;
       padding: 5px 10px;
     }
-    textarea {
+    input,
+    select {
+      height: 45px;
+    }
+
+    /* span both columns */
+    li:has(#name-input),
+    li:has(#date-input),
+    li:has(#desc-input) {
+      grid-column: 1 / span 2;
+    }
+    li:has(#desc-input) {
+      margin-top: 10px;
+    }
+    #desc-input {
+      font-size: 0.85rem;
       resize: vertical;
+      height: 100px;
+      max-height: 200px;
+      overflow-y: auto;
     }
 
     .dialog-btns {
