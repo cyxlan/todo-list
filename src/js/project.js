@@ -1,4 +1,12 @@
-const projects = [];
+let projects = [];
+
+function getProjects() {
+  return projects;
+}
+
+function setProjects(projectsData) {
+  projects = projectsData;
+}
 
 function _getProject(name) {
   return projects.find((x) => x.name === name);
@@ -49,6 +57,8 @@ function addTodoToProject(projectName, todo) {
 }
 
 export {
+  getProjects,
+  setProjects,
   DuplicateNameError,
   createProject,
   renameProject,

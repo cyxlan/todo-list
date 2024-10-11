@@ -12,6 +12,7 @@ import {
   newProjectDialog,
   todoDialog
 } from './dialog';
+import { populateStorage } from './storage';
 
 import 'iconify-icon';
 import 'pretty-checkbox';
@@ -175,6 +176,8 @@ function updateDisplay() {
   newTodoBtn.id = 'new-todo-btn';
 
   contentDiv.append(_createNewProjectBtn(), newTodoBtn);
+
+  populateStorage();
 }
 
 export {
