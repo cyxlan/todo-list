@@ -7,6 +7,14 @@
   padding: 20px 25px;
   min-width: 500px;
 
+  #close-btn {
+    position: absolute;
+    top: 20px;
+    right: 25px;
+    font-size: 30px;
+    color: rgb(104, 104, 104);
+  }
+
   #form-fields {
     display: grid;
     grid-template-columns: 1fr 1fr;

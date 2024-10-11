@@ -8,7 +8,17 @@ import {
   addTodo,
   editTodo,
 } from './todo';
-import { updateDisplay } from './display';
+import {
+  createIcon,
+  updateDisplay,
+} from './display';
+
+function _closeDialogOnClick(btn) {
+  const dialog = document.querySelector('#dialog');
+  btn.addEventListener('click', () => {
+    dialog.close();
+  })
+}
 
 function _createFormField(labelText, field) {
   const label = document.createElement('label');
@@ -50,6 +60,14 @@ function _generateDialogForm(headerText, nameLabelText) {
 
   _addFormField(formFields, name);
 
+  const closeBtn = document.createElement('button');
+  closeBtn.setAttribute('type', 'button');
+  closeBtn.id = 'close-btn';
+  closeBtn.ariaLabel = 'Close dialog';
+  closeBtn.append(createIcon('window-close'));
+
+  _closeDialogOnClick(closeBtn);
+
   const dialogBtns = document.createElement('div');
   dialogBtns.classList.add('dialog-btns');
 
@@ -63,14 +81,13 @@ function _generateDialogForm(headerText, nameLabelText) {
   cancelBtn.id = 'cancel-btn';
   cancelBtn.textContent = 'Cancel';
 
-  cancelBtn.addEventListener('click', () => {
-    dialog.close();
-  });
+  _closeDialogOnClick(cancelBtn);
 
   dialogBtns.append(submitBtn, cancelBtn);
 
   dialogForm.append(
     dialogHeader,
+    closeBtn,
     formFields,
     dialogBtns
   );
