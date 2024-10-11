@@ -4,8 +4,13 @@
   right: 0;
 }
 .menu-btn {
-  color: rgb(104, 104, 104);
+  color: var(--dark-1);
 }
+.menu-popup {
+  display: grid;
+  justify-items: start;
+}
+
 .project > .menu-container {
   .menu-btn {
     font-size: 1.5rem;
@@ -29,9 +34,4 @@
     padding: 3px;
     gap: 5px;
   }
-}
-
-.menu-popup {
-  display: grid;
-  justify-items: start;
 }

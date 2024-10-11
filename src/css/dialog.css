@@ -3,7 +3,7 @@
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgb(217, 217, 217);
+  background-color: var(--bg-1);
   padding: 20px 25px;
   min-width: 500px;
 
@@ -12,7 +12,7 @@
     top: 20px;
     right: 25px;
     font-size: 30px;
-    color: rgb(104, 104, 104);
+    color: var(--dark-1);
   }
 
   #form-fields {
@@ -27,10 +27,11 @@
       font-size: 1.3rem;
       margin-bottom: 10px;
     }
+
     label {
       font-size: 0.85rem;
-      margin-bottom: 5px;
       display: block;
+      margin-bottom: 5px;
     }
     .form-input {
       width: 100%;
@@ -38,7 +39,7 @@
     input,
     select,
     textarea {
-      background-color: white;
+      background-color: rgb(255, 255, 255);
       padding: 5px 10px;
     }
     input,
@@ -52,6 +53,7 @@
     li:has(#desc-input) {
       grid-column: 1 / span 2;
     }
+
     li:has(#desc-input) {
       margin-top: 10px;
     }
@@ -66,7 +68,7 @@
     .dialog-btns {
       margin-top: 30px;
       display: grid;
-      grid-template-columns: auto auto;
+      grid-template-columns: 1fr 1fr;
       gap: 20px;
 
       button {
@@ -75,14 +77,14 @@
       }
     }
     #submit-btn {
-      background-color: rgb(104, 104, 104);
-      color: white;
+      background-color: var(--dark-1);
+      color: rgb(255, 255, 255);
       font-weight: 500;
       justify-self: right;
     }
     #cancel-btn {
-      border: 2px solid rgb(150, 150, 150);
-      color: rgb(85, 85, 85);
+      border: 2px solid var(--dark-2);
+      color: var(--dark-0);
       justify-self: left;
     }
   }
@@ -107,17 +109,17 @@ dialog {
   }
 }
 dialog::backdrop {
-  background-color: rgb(0 0 0 / 0%);
+  background-color: rgba(0, 0, 0, 0);
   transition:
     overlay 50ms allow-discrete,
     display 50ms allow-discrete,
     background-color 50ms;
 }
 dialog[open]::backdrop {
-  background-color: rgb(0 0 0 / 50%);
+  background-color: rgba(0, 0, 0, 0.5);
 }
 @starting-style {
   dialog[open]::backdrop {
-    background-color: rgb(0 0 0 / 0%);
+    background-color: rgba(0, 0, 0, 0);
   }
 }
