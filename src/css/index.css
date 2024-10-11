@@ -64,6 +64,8 @@ h1 {
   iconify-icon {
     color: rgb(104, 104, 104);
     font-size: 30px;
+    /* prevent text shifting before icon loads in */
+    width: 30px;
   }
 }
 
