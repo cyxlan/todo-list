@@ -125,18 +125,12 @@ function _createProjectDiv(projectName) {
     }
   }
 
-  const newTodoBtn = document.createElement('button');
-  newTodoBtn.setAttribute('type', 'button');
-  newTodoBtn.classList.add('new-project-todo-btn');
-  newTodoBtn.title = 'Add to-do';
-  newTodoBtn.ariaLabel = 'Add to-do to project';
-
-  newTodoBtn.append(createIcon('plus'));
-
-  _showDialogOnClick(newTodoBtn, () => {
+  const newTodoBtn = _createNewTodoBtn(() => {
     todoDialog(projectName);
   });
-
+  newTodoBtn.classList.add('new-project-todo-btn');
+  newTodoBtn.ariaLabel = 'Add to-do to project';
+  
   projectDiv.append(newTodoBtn);
 
   return projectDiv;
@@ -157,16 +151,14 @@ function _createNewProjectBtn() {
   return newProjectBtn;
 }
 
-function _createNewTodoBtn() {
+function _createNewTodoBtn(dialogFunction) {
   const newTodoBtn = document.createElement('button');
   newTodoBtn.setAttribute('type', 'button');
-  newTodoBtn.id = 'new-todo-btn';
   newTodoBtn.title = 'Add to-do';
   newTodoBtn.ariaLabel = 'Add to-do';
-
   newTodoBtn.append(createIcon('plus'));
 
-  _showDialogOnClick(newTodoBtn, todoDialog);
+  _showDialogOnClick(newTodoBtn, dialogFunction);
 
   return newTodoBtn;
 }
@@ -179,7 +171,10 @@ function updateDisplay() {
     contentDiv.append(_createProjectDiv(projectName));
   }
 
-  contentDiv.append(_createNewProjectBtn(), _createNewTodoBtn());
+  const newTodoBtn = _createNewTodoBtn(todoDialog);
+  newTodoBtn.id = 'new-todo-btn';
+
+  contentDiv.append(_createNewProjectBtn(), newTodoBtn);
 }
 
 export {
