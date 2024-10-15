@@ -3,9 +3,6 @@
   top: 0;
   right: 0;
 }
-.menu-btn {
-  color: var(--dark-1);
-}
 .menu-popup {
   display: grid;
   justify-items: start;
@@ -13,6 +10,7 @@
 
 .project > .menu-container {
   .menu-btn {
+    color: var(--light-3);
     font-size: 1.5rem;
     margin-top: 15px;
     margin-right: 5px;
@@ -25,6 +23,7 @@
 }
 .todo > .menu-container {
   .menu-btn {
+    color: var(--light-2);
     font-size: 24px;
     margin-top: 10px;
     margin-right: 3px;

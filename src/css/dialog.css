@@ -1,3 +1,8 @@
+:root {
+  --backdrop-0: rgba(169, 190, 195,, 0);
+  --backdrop-1: rgba(169, 190, 195, 0.5);
+}
+
 #dialog {
   position: absolute;
   left: 50%;
@@ -12,7 +17,7 @@
     top: 20px;
     right: 25px;
     font-size: 30px;
-    color: var(--dark-1);
+    color: var(--light-3);
   }
 
   #form-fields {
@@ -29,6 +34,7 @@
     }
 
     label {
+      color: var(--light-1);
       font-size: 0.85rem;
       display: block;
       margin-bottom: 5px;
@@ -39,7 +45,7 @@
     input,
     select,
     textarea {
-      background-color: rgb(255, 255, 255);
+      background-color: var(--bg-0);
       padding: 5px 10px;
     }
     input,
@@ -52,6 +58,11 @@
     li:has(#date-input),
     li:has(#desc-input) {
       grid-column: 1 / span 2;
+    }
+
+    /* date picker calendar icon */
+    #date-input::-webkit-calendar-picker-indicator {
+      color-scheme: dark;
     }
 
     li:has(#desc-input) {
@@ -77,14 +88,14 @@
       }
     }
     #submit-btn {
-      background-color: var(--dark-1);
-      color: rgb(255, 255, 255);
+      background-color: var(--bg-0a);
+      color: var(--light-0);
       font-weight: 500;
       justify-self: right;
     }
     #cancel-btn {
-      border: 2px solid var(--dark-2);
-      color: var(--dark-0);
+      border: 2px solid var(--bg-0);
+      color: var(--light-1);
       justify-self: left;
     }
   }
@@ -109,17 +120,17 @@ dialog {
   }
 }
 dialog::backdrop {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: var(--backdrop-0);
   transition:
     overlay 50ms allow-discrete,
     display 50ms allow-discrete,
     background-color 50ms;
 }
 dialog[open]::backdrop {
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--backdrop-1);
 }
 @starting-style {
   dialog[open]::backdrop {
-    background-color: rgba(0, 0, 0, 0);
+    background-color: var(--backdrop-0);
   }
 }
