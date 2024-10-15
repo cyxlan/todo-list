@@ -117,7 +117,7 @@ function renameProjectDialog(oldName) {
     'Rename Project',
     'Project'
   );
-  nameInput.value = oldName;
+  dialogForm.nameInput.value = oldName;
 
   dialogForm.submitBtn.addEventListener('click', (e) => {
     _submitForm(e, () => {
