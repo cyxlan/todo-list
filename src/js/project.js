@@ -18,19 +18,26 @@ class DuplicateNameError extends Error {
     this.name = this.constructor.name;
   }
 }
-function createProject(name) {
-  // prevent creating a project with no name or the same name as one that already exists
+// prevent creating a project with no name or the same name as one that already exists
+function _validateName(name) {
   if (name === '') {
     throw new Error(`Project name cannot be empty.`);
   } else if (_getProject(name)) {
     throw new DuplicateNameError(`Project named "${name}" already exists.`);
   }
+}
+
+function createProject(name) {
+  _validateName(name);
   const project = { name, todos: [] };
   projects.push(project);
 }
 
-function renameProject(name, newName) {
-  _getProject(name).name = newName;
+function renameProject(oldName, newName) {
+  if (newName !== oldName) {
+    _validateName(newName);
+    _getProject(oldName).name = newName;
+  }
 }
 
 function deleteProject(name) {
