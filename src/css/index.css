@@ -48,6 +48,7 @@ h1 {
 .project {
   position: relative;
   padding-bottom: 5px;
+  border-radius: 10px 0 10px 10px; /* round corners except top right */
 
   h2 {
     padding-right: 15px; /* compensate for menu icon */
@@ -74,6 +75,7 @@ h1 {
 }
 
 #new-project-btn {
+  border-radius: 10px;
   font-size: 1.3rem;
   font-weight: 600;
   display: flex;
@@ -92,6 +94,7 @@ h1 {
   position: relative;
   background-color: var(--dark-1);
   padding: 10px 15px;
+  border-radius: 5px 0 5px 5px; /* round corners except top right */
   /* display checkbox in column left of todo info */
   display: grid;
   grid-template-columns: 20px auto;
@@ -188,7 +191,7 @@ h1 {
   font-size: 40px;
   color: var(--light-2);
   background-color: var(--dark-0);
-  border-radius: 50%;
+  border-radius: 40px 40px 0 40px; /* round corners except bottom right */
   width: 80px;
   height: 80px;
   display: flex;

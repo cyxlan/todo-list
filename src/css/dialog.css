@@ -11,6 +11,7 @@
   background-color: var(--dark-0);
   padding: 20px 25px;
   min-width: 500px;
+  border-radius: 10px 0 10px 10px; /* round corners except top right */
 
   #close-btn {
     position: absolute;
@@ -47,6 +48,7 @@
     textarea {
       background-color: var(--dark-1);
       padding: 5px 10px;
+      border-radius: 5px;
     }
     input,
     select {
@@ -85,6 +87,7 @@
       button {
         padding: 6px;
         width: 150px;
+        border-radius: 5px;
       }
     }
     #submit-btn {
