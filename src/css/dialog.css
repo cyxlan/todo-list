@@ -11,7 +11,7 @@
   background-color: var(--dark-0);
   padding: 20px 25px;
   min-width: 500px;
-  border-radius: 10px 0 10px 10px; /* round corners except top right */
+  border-radius: 15px 0 15px 15px; /* round corners except top right */
 
   #close-btn {
     position: absolute;

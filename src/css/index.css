@@ -44,11 +44,12 @@ h1 {
   padding: 15px;
   width: 350px;
   min-width: 350px;
+  border-radius: 15px;
 }
 .project {
   position: relative;
   padding-bottom: 5px;
-  border-radius: 10px 0 10px 10px; /* round corners except top right */
+  border-top-right-radius: 0;
 
   h2 {
     padding-right: 15px; /* compensate for menu icon */
@@ -75,7 +76,6 @@ h1 {
 }
 
 #new-project-btn {
-  border-radius: 10px;
   font-size: 1.3rem;
   font-weight: 600;
   display: flex;
