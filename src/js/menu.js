@@ -118,7 +118,7 @@ function createTodoMenu(projectName, todo) {
       text: 'Delete',
       function: _todoMenuDelete,
     },
-    popupOffset: [3, 3],
+    popupOffset: [3.9, 3],
   });
 
   return menuDiv;

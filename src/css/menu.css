@@ -7,6 +7,11 @@
   display: grid;
   justify-items: start;
 }
+.tippy-box {
+  border-radius: 0 5px 5px 0; /* round top & bottom right corners */
+  background-color: var(--light-2);
+  color: var(--dark-0);
+}
 
 .project > .menu-container {
   .menu-btn {
