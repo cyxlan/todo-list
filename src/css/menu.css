@@ -12,11 +12,18 @@
   background-color: var(--light-2);
   color: var(--dark-0);
 }
+/* align to project/todo container */
+.project [data-tippy-root] {
+  transform: translateX(35px) !important;
+}
+.todo [data-tippy-root] {
+  transform: translateX(28px) !important;
+}
 
 .project > .menu-container {
   .menu-btn {
     color: var(--light-3);
-    font-size: 1.5rem;
+    font-size: 30px;
     margin-top: 15px;
     margin-right: 5px;
   }

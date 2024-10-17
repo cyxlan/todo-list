@@ -38,17 +38,6 @@ function _generateMenu(labelName, options) {
         <button class="${options.btn1.class}">${options.btn1.text}</button>
         <button class="${options.btn2.class}">${options.btn2.text}</button>
       </div>`,
-    // align to project/todo container
-    popperOptions: {
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: options.popupOffset,
-          },
-        },
-      ],
-    },
     onShown() {
       menuDiv
         .querySelector(`.${options.btn1.class}`)
@@ -90,8 +79,7 @@ function createProjectMenu(projectName) {
       class: 'delete-btn',
       text: 'Delete',
       function: _projectMenuDelete,
-    },
-    popupOffset: [0, 5],
+    }
   });
 
   return menuDiv;
@@ -117,8 +105,7 @@ function createTodoMenu(projectName, todo) {
       class: 'delete-btn',
       text: 'Delete',
       function: _todoMenuDelete,
-    },
-    popupOffset: [3.9, 3],
+    }
   });
 
   return menuDiv;
